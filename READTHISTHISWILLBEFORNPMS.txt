@@ -1,0 +1,7 @@
+
+
+NPM INSTALL REACT
+NPM INSTALL REACT-ROUTER
+
+
+If you add anything else, update this list
