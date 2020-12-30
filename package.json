@@ -10,8 +10,11 @@
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",
+<<<<<<< HEAD
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+=======
+>>>>>>> parent of 4d78d38 (next commit)
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4"
   },
