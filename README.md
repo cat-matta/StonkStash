@@ -1,8 +1,18 @@
-# NPM STUFF I ADDED PLEASE ADD MORE IF YOU ADDED ANYTHING
-# ALSO I ADDED PIP3 STUFF TOO
+## NPM STUFF
+- ```sudo npm install -g expo-cli ``` 
+- ```sudo npm i -g react-native-cli ```
+- If there are any other changes place them here
 
-# sudo npm install -g expo-cli
- # sudo npm i -g react-native-cli
- # pip3 install seaborn
- # pip3 install flask
- # install cocoapods
+
+
+## For the backend:
+- Activate the virtual environment first
+- To install the packages:
+``` pip install -r requirements.txt```
+- Should you install a pip package just do:
+``` pip freeze > requirements.txt```
+- Push the file to this repo
+
+## For react native: 
+- ```install cocoapods```
+- If there are any other changes place them here.
