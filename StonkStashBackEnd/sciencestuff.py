@@ -2,6 +2,7 @@ import pandas as pd
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy import stats
 
 # initialization and filtering the data
 
@@ -24,9 +25,9 @@ def get_user_input(): # what stock and date does the user want to look at?
 
 stock_name, stock_date=get_user_input() # getting the data
 want = df.loc[(df['Name'] == stock_name) & (df['date'] == stock_date)] # getting the values that the user wanted
-want_high = float(want.high) # getting the high value
-want_low = float(want.low)
-date = want.index[0] # getting the date index 
+want_high = want.high # getting the high value
+want_low = want.low
+date = df.index[0] # getting the date index 
 print("High: {}\nLow: {}\n".format(want_high,want_low)) # just for debugging
 
 def filter_data(dataframe,stock_name,date,period): # we can add options for the period later
@@ -67,3 +68,6 @@ def graph_stuff(dataframe,start_date,end_date,period):
     plt.show() # displaying it
 
 filter_data(df, stock_name, date,'y')
+
+
+
