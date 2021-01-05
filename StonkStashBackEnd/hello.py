@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+#hello
+=======
 ##import sciencestuff as coolbeans
 import numpy as np ## feel free to comment this out
 
@@ -41,3 +44,4 @@ print(g)
 
 
 print("Hello World")
+>>>>>>> origin/main
