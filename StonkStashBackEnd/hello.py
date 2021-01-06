@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-#hello
-=======
 ##import sciencestuff as coolbeans
 import numpy as np ## feel free to comment this out
-
-
+import time
+import main
 
 '''okay so to calculate the volitility i need you to use these functions with the csv file. I will also provide a definition.
 
@@ -32,16 +29,35 @@ def sharesbought(arr): ##how many shares bought
     volume = np.array(arr);##this will come from the volume dataset
     bought = np.mean(volume);##since its an array we need the average for time period
     return bought;
-
-###BELOW IS JUST TESTS
-list = [1,2,3,4,5] 
-
-g = riskyboi(list)
-print(g)
-g = sharesbought(list)
-print(g)
     
+def getHighAndLow(companyName):
+    stock_candles = main.getStockCandlesToday(companyName)
+    high = stock_candles['h']
+    low = stock_candles['l']
+    highChange = []
+    lowChange = []
+    highAndLowDiff = []
+    for i in range(len(high)-1):
+        highChange.append(high[i+1]-high[i])
+        lowChange.append(low[i+1]-low[i])
+        highAndLowDiff.append((high[i]-low[i])*100/high[i])
+    
+    return highChange,lowChange,highAndLowDiff;
 
+def driver():
+    #put in the desired company's stock symbol
+    stock_name = "AMZN"
+    
+    highChange, lowChange, highAndLowDiff = getHighAndLow(stock_name)
+    
+    #volatility of the high prices
+    print(riskyboi(highChange))
+    
+    #volatility of the low prices
+    print(riskyboi(lowChange))
+    
+    #this computation might not be meaningful, but it gives an idea of
+    #how widely the stock ranges each day as a percentage of its current high
+    print(highAndLowDiff)
 
-print("Hello World")
->>>>>>> origin/main
+driver()

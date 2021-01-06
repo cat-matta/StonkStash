@@ -22,6 +22,12 @@ def getStockCandles(companySymbol,resolution,end,period):
     start = end - periods[period]
     candles = finnhub_client.stock_candles(companySymbol,resolution,start,end)
     return candles
+    
+def getStockCandlesToday(companySymbol):
+    end = int(time.time())
+    start = end - periods["m"]
+    candles = finnhub_client.stock_candles(companySymbol,'D',start,end)
+    return candles
 
 #to see the high and low price of a stock with symbol AMZN (for example), use the following line
 #getStockPrice('AMZN')
