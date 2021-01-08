@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image,Text } from 'react-native';
 import Loginform from './Loginform';
 
-export default class login extends Component{
+class Login extends Component {
   render() {
     return (
       <View styles = {styles.container}>
@@ -49,3 +49,5 @@ const styles = StyleSheet.create({
 
   
 });
+
+export default Login;
