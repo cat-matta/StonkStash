@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
-
+import Login from './welcome/components/Login/Login';
 
 
 const Authstack = createStackNavigator(); 
