@@ -1,6 +1,11 @@
 import finnhub
 import time
 import datetime as dt
+import os
+from dotenv import load_dotenv # for the API key
+
+load_dotenv() # hiding our API key
+TOKEN = os.environ.get("token")
 
 #week is 7 days
 #month is 30 days
@@ -9,7 +14,7 @@ import datetime as dt
 #year is 365 days
 periods = {"w": 604800, "m": 2592000, "q": 2592000, "s": 15724800, "y": 31536000}
 # Setup client
-finnhub_client = finnhub.Client(api_key= "bvml27748v6trsjv9u80")
+finnhub_client = finnhub.Client(api_key= TOKEN)
 
 def getStockPrice(companySymbol):
     stockPriceJSON = finnhub_client.quote(companySymbol)
