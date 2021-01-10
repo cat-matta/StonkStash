@@ -8,7 +8,7 @@ load_dotenv() # hiding our API key
 TOKEN = os.environ.get("token")
 
 #week is 7 days
-#month is 30 days
+#month is 30 daysp
 #quarter is 91 days
 #semiannual is 182 days
 #year is 365 days
