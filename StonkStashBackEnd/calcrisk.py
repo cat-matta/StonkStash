@@ -1,6 +1,10 @@
 import hello
-import sciencestuff
 import main
+import pandas as pd 
+import seaborn as sns
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
 print("Hello World")
 
 
@@ -39,7 +43,6 @@ if the shares bought or sold are drastically changing within 3 days. Many people
 '''
 
 
-def futureearnings():
-    originalstockprice = 1.00
-    futureprofits = 1.02
-    earningspercent = 
+periods= {"w": "week", "m": "month", "q": "quarter", "s": "semianual", "y": "year"} # We are gonna need periods for this
+
+getStockPrice('AMZN')
