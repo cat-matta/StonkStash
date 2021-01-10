@@ -36,3 +36,16 @@ def getStockCandlesToday(companySymbol):
 
 #to see the high and low price of a stock with symbol AMZN (for example), use the following line
 #getStockPrice('AMZN')
+
+
+
+##adding riskycalulations below
+
+
+
+
+
+
+
+res = finnhub_client.stock_candles('AMZN', 'D', 1590988249, 1591852249)
+print(res)
