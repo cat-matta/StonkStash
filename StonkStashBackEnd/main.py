@@ -7,7 +7,7 @@ from dotenv import load_dotenv # for the API key
 load_dotenv() # hiding our API key
 TOKEN = os.environ.get("token")
 
-#week is 7 days
+#week is 7 day
 #month is 30 daysp
 #quarter is 91 days
 #semiannual is 182 days
