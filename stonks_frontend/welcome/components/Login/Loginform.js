@@ -9,11 +9,14 @@ export default class Loginform extends Component {
        <TextInput 
        placeholder= "User"
        placeholderTextColor= '#FFF'
+       textContentType= "username"
        style ={styles.input}
        />
         <TextInput 
         placeholder= "Password"
         placeholderTextColor='#FFF'
+        textContentType= "password"
+        secureTextEntry= { true } 
        style ={styles.input}
        />
 

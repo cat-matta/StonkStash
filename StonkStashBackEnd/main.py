@@ -7,7 +7,7 @@ from dotenv import load_dotenv # for the API key
 load_dotenv() # hiding our API key
 TOKEN = os.environ.get("token")
 
-#week is 7 days
+#week is 7 day
 #month is 30 daysp
 #quarter is 91 days
 #semiannual is 182 days
@@ -36,3 +36,16 @@ def getStockCandlesToday(companySymbol):
 
 #to see the high and low price of a stock with symbol AMZN (for example), use the following line
 #getStockPrice('AMZN')
+
+
+
+##adding riskycalulations below
+
+
+
+
+
+
+
+res = finnhub_client.stock_candles('AMZN', 'D', 1590988249, 1591852249)
+print(res)
