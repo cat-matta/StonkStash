@@ -4,14 +4,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 import Login from './welcome/components/Login/Login';
+import Signup from './welcome/components/Signup/Signup';
+import Landing from './welcome/components/Landing/Landing';
 
 
 const Authstack = createStackNavigator(); 
 
 export default ()=>(
   <NavigationContainer>
-    <Authstack.Navigator>
-      <Authstack.Screen name = "Login" component = {Login}/>
+    <Authstack.Navigator initialRouteName="Landing">
+      <Authstack.Screen name="Landing" component={Landing} />
+      <Authstack.Screen name="Signup" component={Signup}/>
+      <Authstack.Screen name="Login" component={Login}/>
     </Authstack.Navigator>
   </NavigationContainer>
 );
