@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, View, Image,Text } from 'react-native';
-import Signupform from './Signupform';
+import Signupform from './../forms/Signupform';
+
+/** Account creation, allowing a User to access the site's services and other pages. */
 
 class Signup extends Component {
   render() {
@@ -10,7 +12,7 @@ class Signup extends Component {
         <View style = {styles.logoContainer}>
           <Image 
           style = {styles.logo}
-          source ={require('../../Images/icon.png')}
+          source ={require('../../images/icon.png')}
           />
           <Text style = {styles.title}>Welcome to StonkStache</Text>
 

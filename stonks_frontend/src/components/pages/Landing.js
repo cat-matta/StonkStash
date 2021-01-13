@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Text, Button } from 'react-native';
 
+/** The first page, before a user logs in to the site. */
+
 class Landing extends Component {
   render() {
     return (
@@ -9,7 +11,7 @@ class Landing extends Component {
         <View style = {styles.logoContainer}>
           <Image 
           style = {styles.logo}
-          source ={require('../../Images/icon.png')}
+          source ={require('../../images/icon.png')}
           />
           <Text style = {styles.title}>Welcome to StonkStache</Text>
 
