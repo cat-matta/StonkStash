@@ -55,10 +55,42 @@ class Signupform extends Component {
         <TouchableOpacity style={styles.buttonContainer}>
           <Button style={styles.buttonText}
             onPress={ () => {
-                // Once authentication routes are made, submit stuff here.
-                // ensure validation of email, password, username, etc and rejection if bad
-                // TODO: determine requirements for each field.
-                this.props.navigation.navigate('Login');
+
+                try {
+                  // Once authentication routes are made, submit stuff here.
+                  // ensure validation of email, password, username, etc and rejection if bad
+                  // TODO: determine requirements for each field.
+
+                  // To send to Front End input validation helper function
+                  const newUserFields={
+                    username: username,
+                    email: email,
+                    email2: email2,
+                    password: password,
+                    password2: password2
+                  };
+
+                  // Proposed Field validations
+                  /** Username => min len, maxlen, no special characters (Im guessing it might be like a display name, idk) */
+
+                  /** Email => must be in email form, if we get to fr deployment, actually check that the email exists */
+
+                  /** Email2 => If email 1 passes validation, email2 === email */
+
+                  /** Password => min len, max len, perhaps {1 capital, 1 lowercase, 1 num, 1 special char} */
+
+                  /** Password2 => if password1 passes, password2 === password */
+
+                  // If all fields pass validation, send it off to the backend to register new user.
+                    // If success, move on to the login screen
+                    // else throw error and explain reason (local validation error, not serverside shit)
+
+                  this.props.navigation.navigate('Login');
+                }
+                catch(err) {
+                  console.err(err);
+                }
+                
             } }
             title="Submit"/>
 

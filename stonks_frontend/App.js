@@ -3,9 +3,9 @@ import React, {Component} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
-import Login from './welcome/components/Login/Login';
-import Signup from './welcome/components/Signup/Signup';
-import Landing from './welcome/components/Landing/Landing';
+import Login from './src/components/pages/Login';
+import Signup from './src/components/pages/Signup';
+import Landing from './src/components/pages/Landing';
 
 
 const Authstack = createStackNavigator(); 

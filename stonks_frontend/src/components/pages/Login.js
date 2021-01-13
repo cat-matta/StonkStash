@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, View, Image,Text } from 'react-native';
-import Loginform from './Loginform';
+import Loginform from './../forms/Loginform';
+
+/** The Login page, allowing the User access to the main site and it's services. */
 
 class Login extends Component {
   render() {
@@ -10,7 +12,7 @@ class Login extends Component {
         <View style = {styles.logoContainer}>
           <Image 
           style = {styles.logo}
-          source ={require('../../Images/icon.png')}
+          source ={require('../../images/icon.png')}
           />
           <Text style = {styles.title}>Welcome to StonkStache</Text>
 
