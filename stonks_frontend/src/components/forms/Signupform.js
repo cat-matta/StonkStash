@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
 import {StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
 
+const SignupValidation = require("../../utils/SignupValidation");
+
 class Signupform extends Component {
 
   state = { username: "", email: "", email2: "", password: "", password2: ""};
@@ -63,32 +65,21 @@ class Signupform extends Component {
 
                   // To send to Front End input validation helper function
                   const newUserFields={
-                    username: username,
-                    email: email,
-                    email2: email2,
-                    password: password,
-                    password2: password2
+                    username: this.state.username,
+                    email: this.state.email,
+                    email2: this.state.email2,
+                    password: this.state.password,
+                    password2: this.state.password2
                   };
 
-                  // Proposed Field validations
-                  /** Username => min len, maxlen, no special characters (Im guessing it might be like a display name, idk) */
-
-                  /** Email => must be in email form, if we get to fr deployment, actually check that the email exists */
-
-                  /** Email2 => If email 1 passes validation, email2 === email */
-
-                  /** Password => min len, max len, perhaps {1 capital, 1 lowercase, 1 num, 1 special char} */
-
-                  /** Password2 => if password1 passes, password2 === password */
-
-                  // If all fields pass validation, send it off to the backend to register new user.
-                    // If success, move on to the login screen
-                    // else throw error and explain reason (local validation error, not serverside shit)
+                  const results = SignupValidation(newUserFields);
+                  if(!results.isValid) throw(results.errors);
 
                   this.props.navigation.navigate('Login');
                 }
                 catch(err) {
-                  console.err(err);
+                  console.log(err);
+                  // display errors at the top of the signup form
                 }
                 
             } }
