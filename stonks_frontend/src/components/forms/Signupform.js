@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
 import {StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
 
+const SignupValidation = require("../../utils/SignupValidation");
+
 class Signupform extends Component {
 
   state = { username: "", email: "", email2: "", password: "", password2: ""};
@@ -55,10 +57,31 @@ class Signupform extends Component {
         <TouchableOpacity style={styles.buttonContainer}>
           <Button style={styles.buttonText}
             onPress={ () => {
-                // Once authentication routes are made, submit stuff here.
-                // ensure validation of email, password, username, etc and rejection if bad
-                // TODO: determine requirements for each field.
-                this.props.navigation.navigate('Login');
+
+                try {
+                  // Once authentication routes are made, submit stuff here.
+                  // ensure validation of email, password, username, etc and rejection if bad
+                  // TODO: determine requirements for each field.
+
+                  // To send to Front End input validation helper function
+                  const newUserFields={
+                    username: this.state.username,
+                    email: this.state.email,
+                    email2: this.state.email2,
+                    password: this.state.password,
+                    password2: this.state.password2
+                  };
+
+                  const results = SignupValidation(newUserFields);
+                  if(!results.isValid) throw(results.errors);
+
+                  this.props.navigation.navigate('Login');
+                }
+                catch(err) {
+                  console.log(err);
+                  // display errors at the top of the signup form
+                }
+                
             } }
             title="Submit"/>
 
