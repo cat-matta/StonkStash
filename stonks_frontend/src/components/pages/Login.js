@@ -3,8 +3,11 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image,Text } from 'react-native';
 import Loginform from './../forms/Loginform';
 
-/** The Login page, allowing the User access to the main site and it's services. */
-
+/** The Login page, allowing the User access to the main site and it's services.
+ * @pre  The backend is online and ready to recieve routing requests from the front end
+ * @post  Just renders the login page. All action occurs in the Loginform component
+ * @return  The JSX required to render the login screen.
+ */
 class Login extends Component {
   render() {
     return (

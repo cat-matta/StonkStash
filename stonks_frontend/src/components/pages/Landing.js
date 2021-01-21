@@ -2,8 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Text, Button } from 'react-native';
 
-/** The first page, before a user logs in to the site. */
-
+/** The first page, before a user logs in to the site. 
+ * @pre  The app has loaded successfully
+ * @post The landing screen elements will be displayed to the user
+ * @return  The JSX required to render the landing screen and connect to the authentication pages
+*/
 class Landing extends Component {
   render() {
     return (

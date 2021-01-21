@@ -3,8 +3,11 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image,Text } from 'react-native';
 import Signupform from './../forms/Signupform';
 
-/** Account creation, allowing a User to access the site's services and other pages. */
-
+/** Account creation, allowing a User to access the site's services and other pages. 
+ * @pre  The app has loaded correctly and the backend is able to recieve routing requests.
+ * @post  If the details provided by the user are valid, they will be transported to the Login page
+ * @return  The JSX necessary to render the signup page.
+*/
 class Signup extends Component {
   render() {
     return (
@@ -20,7 +23,7 @@ class Signup extends Component {
         </View>
 
         <View styles = {styles.formContainer}>
-          <Signupform navigation = {this.props.navigation}/>
+          <Signupform navigation = {this.props.navigation /* All the input action happens in the form component */}/> 
         </View>
        
       </View>//styles container
