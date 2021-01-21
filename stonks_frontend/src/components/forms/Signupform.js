@@ -133,7 +133,7 @@ class Signupform extends Component {
 
         <TouchableOpacity style={styles.buttonContainer}>
           <Button style={styles.buttonText}
-            onPress={this.submitSignup()}
+            onPress={this.onSubmit}
             title="Submit"/>
 
 
