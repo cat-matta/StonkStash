@@ -1,13 +1,18 @@
 from flask import Blueprint, render_template
-#from . import db
 import json
+#from . import db
 
-server = Blueprint('server', __name__)
+server = Blueprint('server', __name__,static_folder="static")
+# stock_name="TSLA"
+# stock_date="2021-01-21"
+# plotname=driver(stock_name,stock_date)
 
 # landing page, assumed
+# app.config['stock_date']=stock_date
+# app.config['plotname']=plotname
 @server.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html')#,stock_name=stock_name,stock_date=stock_date,plotname=plotname)
 
 @server.route('/profile')
 def profile():
