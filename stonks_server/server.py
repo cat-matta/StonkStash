@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from . import db
+#from . import db
 import json
 
 server = Blueprint('server', __name__)
@@ -99,7 +99,8 @@ def login():
             #result = log_in(req_data["email"], req_data["password"]) # log_in was a function I made to handle logging in, make your own!
             result = "good"
 
-            if re
+            if result == 'some error': # please define the error and make the necessary changes
+                raise Exception(result)
   
         except Exception as e:
             print(e)
