@@ -3,7 +3,8 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
-import main
+from . import main
+#import main
 
 periods= {"w": "week", "m": "month", "q": "quarter", "s": "semianual", "y": "year"} # different periods for the graphs to be shown in
 
@@ -23,16 +24,24 @@ def graph_stuff(dataframe,name,date,period):
     plt.title(string)
     plt.ylabel('Price [$]') # y axis
     plt.xlabel('Date [yr-mon-day]') # x axis
-    save = "plots/{}_{}_{}.png".format(name,date,period) # to save the output and give it a name
+    filename="{}_{}_{}.png".format(name,date,period)
+    save = "static/" + filename # to save the output and give it a name
     fig.savefig(save) # saving the figure
-    plt.show() # displaying it
+    #plt.show() # displaying it
+    return filename
     
-def driver():
+def driver(stock_name,stock_date):
     resolution = 'D' #resolution can be any one of 1, 5, 15, 30, 60, D, W, M
     period = 'y' #period can be any one of w, m, q, s, y
     
-    stock_name, stock_date=get_user_input() #asks user for a stock name and date
+    #stock_name, stock_date=get_user_input() #asks user for a stock name and date
     desiredData = main.getStockCandles(stock_name,resolution,stock_date,period) #getting data
-    graph_stuff(desiredData,stock_name,stock_date,period) # now we graph
-    
-driver()
+    filename=graph_stuff(desiredData,stock_name,stock_date,period) # now we graph
+    return filename
+
+#stock_name, stock_date=get_user_input() #asks user for a stock name and date
+
+# stock_name="TSLA"
+# stock_date="2021-01-21"
+
+# driver(stock_name,stock_date)

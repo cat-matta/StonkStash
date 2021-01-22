@@ -25,3 +25,5 @@ yarn-error.log*
 # backend stuff
 /StonkStashBackEnd/venv/
 /StonkStashBackEnd/.env
+/venv/
+/stonks_math/.env

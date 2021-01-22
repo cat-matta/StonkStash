@@ -1,0 +1,21 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+</head>
+
+<body>
+    <p> The stock name: {{stock_name}} </p>
+    <p> The date requested: {{stock_date}} </p>
+    <p> showing plot {{plotname}}</p>
+  <img src="{{url_for('static', filename=plotname)}}" />
+</body>
+</html>
