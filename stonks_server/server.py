@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 import json
 #from . import db
 
@@ -59,7 +59,7 @@ def users(data):
 # password: str
 # password2: str - For validation of the first password
 # username: str 
-@app.route('/signup', methods=['POST', 'GET'])
+@server.route('/signup', methods=['POST', 'GET'])
 def signup():
     if request.method == 'POST':
         req_data = request.get_json()
@@ -91,11 +91,11 @@ def signup():
     if request.method == 'GET':
         # prolly just display the page?
         bottom_text = "bottomtext"
-    return
+    return bottom_text
 
 # email: str - user's email
 # password: str - hopefully the user's password
-@app.route('/login', methods=['POST', 'GET']) 
+@server.route('/login', methods=['POST', 'GET']) 
 def login():
     if request.method == 'POST':
         req_data = request.get_json()
