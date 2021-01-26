@@ -8,6 +8,8 @@ import { StyleSheet, View, Image, Text, Button } from 'react-native';
  *      all hands meeting. 
  */
 
+ /** Actual contents not yet determined, tbd by team upon further discussion of features and design */
+
 class Dashboard extends Component {
 
     render() {

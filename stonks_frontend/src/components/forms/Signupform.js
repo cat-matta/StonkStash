@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
 import {StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
+import axios from "axios"; // to see if we can overcome the fetch bug
 
 const SignupValidation = require("../../utils/SignupValidation");
 
@@ -43,24 +44,57 @@ class Signupform extends Component {
         password2: this.state.password2
       };
 
-      const results = SignupValidation(newUser);
+      //const results = SignupValidation(newUser);
+      const results = {isValid: true}
       if(!results.isValid) throw(results.errors);
       else {
         
 
         // Info transmission
+/*        axios
+        .get("api/signup/")
+        .then(res => {
+            console.log(res.status)
+            if(res.status === 201) {
+                return res.json
+            }
+            throw new Error('Somethign went wrong: ' + res.status)
+        })
+        .then(() => {
+            this.setState({
+                success: true,
+            });
+        })
+        .catch(err => {
+            console.log(err)
+            const response = err.response
+            this.setState({
+                error: true,
+                errmsg: err//response["data"]["msg"]
+            });
+        }); */
 
-        fetch("api/signup", { 
-          method: 'POST',
-          body: JSON.stringify({ newUser }),
+        fetch("127.0.0.1/api/signup/", { 
+          method: 'GET', // is supposed to be a post
+          //body: JSON.stringify({ newUser }),
           headers: {
             'Content-Type': 'application/json',
           }
+        })
+        .then(response => {
+          if(!response.ok) {
+            console.log(`da response: ${response.json()}`)
+            throw 'Bad network response';
+          }
+          return response.json();
         })
         .then(data => {
           if(data.success === false) throw(data.errors);
           else this.setState({success: true});
         })
+        .catch(err => {
+          console.log(`da err: ${err}`)
+        }) 
       }
 
       //this.props.navigation.navigate('Login'); 
