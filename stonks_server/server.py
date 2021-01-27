@@ -1,22 +1,15 @@
-from flask import Blueprint, render_template
-<<<<<<< HEAD
-from . import db
+from flask import Blueprint, render_template, request
 import json
-=======
 #from . import db
->>>>>>> c942b5e... More changes to the backend
 
 server = Blueprint('server', __name__,static_folder="static")
 # stock_name="TSLA"
 # stock_date="2021-01-21"
 # plotname=driver(stock_name,stock_date)
 
-<<<<<<< HEAD
 # landing page, assumed
-=======
 # app.config['stock_date']=stock_date
 # app.config['plotname']=plotname
->>>>>>> c942b5e... More changes to the backend
 @server.route('/')
 def index():
     return render_template('index.html')#,stock_name=stock_name,stock_date=stock_date,plotname=plotname)
@@ -66,7 +59,7 @@ def users(data):
 # password: str
 # password2: str - For validation of the first password
 # username: str 
-@app.route('/signup', methods=['POST', 'GET'])
+@server.route('/signup', methods=['POST', 'GET'])
 def signup():
     if request.method == 'POST':
         req_data = request.get_json()
@@ -98,11 +91,11 @@ def signup():
     if request.method == 'GET':
         # prolly just display the page?
         bottom_text = "bottomtext"
-    return
+    return bottom_text
 
 # email: str - user's email
 # password: str - hopefully the user's password
-@app.route('/login', methods=['POST', 'GET']) 
+@server.route('/login', methods=['POST', 'GET']) 
 def login():
     if request.method == 'POST':
         req_data = request.get_json()
@@ -111,7 +104,8 @@ def login():
             #result = log_in(req_data["email"], req_data["password"]) # log_in was a function I made to handle logging in, make your own!
             result = "good"
 
-            if re
+            if result == 'some error': # please define the error and make the necessary changes
+                raise Exception(result)
   
         except Exception as e:
             print(e)
