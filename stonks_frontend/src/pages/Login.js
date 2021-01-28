@@ -9,6 +9,7 @@ class Login extends Component {
       email: '', // user's email address they registered with.
       password: '', // "plaintext" user attempt at submitting the right password corresponding to the email given,
       success: false, // if true, redirect to Dashboard
+      redirectToReferrer: false, // In the event someone 
       error: false, // if true, display this.state.errmsg to user,
       errmsg: '', // Contains any user appropriate error messages, local or otherwise
     }

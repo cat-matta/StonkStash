@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link, withRouter, Redirect} from 'react-router-dom';
-import signupCall from '../utils/requestFunctions';
+import requestFunctions from '../utils/requestFunctions';
 
 
 /** The Registration page for the app.
@@ -44,7 +44,7 @@ class Signup extends Component {
       password2: this.state.password2,
     };
 
-    const result = signupCall(userData);
+    const result = requestFunctions.signupCall(userData);
 
     if(result.success) {
       this.setState({
@@ -65,9 +65,70 @@ class Signup extends Component {
     let error_text = ""
     if (this.state.success) return <Redirect to="/login" />;
     if (this.state.error) error_text = Object.values(this.state.errmsg);
-    return(
-      <h1>Signup: Work in Progress</h1> 
-    )
+    return (
+      <div>
+          <div >
+             
+              <form>
+              
+                  <h1>Sign Up</h1>
+                  <span>Conditions for Username and Password are shown when cursor is hovered over them.</span>   
+                  <span >
+                      {error_text}
+                  </span>
+
+                  <div className="form-group">
+                      <input type="text" 
+                      id="email"
+                      onChange={this.onChange}
+                      value={this.state.email}
+                      placeholder="email address"/>
+                  </div>
+
+                  <div className="form-group">
+                      <input type="text" 
+                      id="username"
+                      onChange={this.onChange}
+                      value={this.state.name}
+                      placeholder="Username"
+                      data-toggle="tooltip"
+                      title="Must be between 6 and 20 characters"/>
+                  </div>
+
+                  <div className="form-group">
+                      <input type="password" 
+                      id="password"
+                      onChange={this.onChange}
+                      value={this.state.password} 
+                      placeholder="Password"
+                      data-toggle="tooltip"
+                      title="Must be between 8 and 30 characters, with one lowercase, one uppercase, and one numeric character"/>
+                  </div>
+
+                  <div className="form-group">
+                      <input type="password" 
+                      id="password2"
+                      onChange={this.onChange}
+                      value={this.state.password2}
+                      placeholder="Confirm Password"/>
+                  </div>
+
+                  <div className="form-group">
+                      <input type="number" 
+                      id="phonenumber"
+                      onChange={this.onChange}
+                      value={this.state.phonenumber}
+                      placeholder="Phone Number"/>
+                  </div>
+
+                  <button onClick={this.onSubmit} >Register</button>
+                  <p>Already have an account? <Link to="/login"><strong>Login</strong></Link></p>
+
+
+              </form>
+          </div>
+      </div>
+  );
   }
 }
 
