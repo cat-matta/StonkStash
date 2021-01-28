@@ -6,6 +6,10 @@ import {
 } from 'react-router-dom';
 
 import Landing from './pages/Landing';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+
+import Dashboard from './pages/Dashboard';
 
 export default class App extends Component {
   render() { ///This renders everything
@@ -13,6 +17,9 @@ export default class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={Landing}/>
+          <Route path="/signup" component={Signup}/>
+          <Route path="/login" component={Login}/>
+          <Route path="/dashboard" component={Dashboard}/>
         </Switch>
       </Router>
     )

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link, withRouter, Redirect} from 'react-router-dom';
+import signupCall from '../utils/requestFunctions';
 
 
 /** The Registration page for the app.
@@ -32,9 +33,29 @@ class Signup extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    // Two schools of thought brewing
-    // 1. Do HTTP request here
-    // 2. or create file with functions doing the requests and import
+    const userData = {
+      username: this.state.username,
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      email: this.state.email,
+      email2: this.state.email2,
+      phonenumber: this.state.phonenumber,
+      password: this.state.password,
+      password2: this.state.password2,
+    };
+
+    const result = signupCall(userData);
+
+    if(result.success) {
+      this.setState({
+        success: true
+      });
+    } else if(result.error) {
+      this.setState({
+        error: true,
+        errmsg: result.errmsg
+      });
+    }
 
   }
   render() {
