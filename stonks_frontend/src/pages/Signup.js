@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link, withRouter, Redirect} from 'react-router-dom';
-import requestFunctions from '../utils/requestFunctions';
+import { signupCall } from '../utils/requestFunctions';
 
 
 /** The Registration page for the app.
@@ -30,7 +30,7 @@ class Signup extends Component {
   }
 
   // Packages the information given by the User and makes an HTTP request to the backend to register.
-  onSubmit = e => {
+  onSubmit = async e => {
     e.preventDefault();
 
     const userData = {
@@ -44,13 +44,16 @@ class Signup extends Component {
       password2: this.state.password2,
     };
 
-    const result = requestFunctions.signupCall(userData);
+    const result = await signupCall(userData);
+    //console.log(result);
 
     if(result.success) {
+      //console.log("Success");
       this.setState({
         success: true
       });
     } else if(result.error) {
+      //console.log("Error");
       this.setState({
         error: true,
         errmsg: result.errmsg
@@ -58,6 +61,8 @@ class Signup extends Component {
     }
 
   }
+
+  
   render() {
     // There WILL be behavior changes here due to actions taken by the User
 
