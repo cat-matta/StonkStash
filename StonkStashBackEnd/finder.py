@@ -160,7 +160,7 @@ def driver():
     else:
         ideals.append("Working Capital over Assets")
 
-    if debtWorthRatio < .4:
+    if debtWorthRatio < 1:
         ideals.append("Debt Worth Ratio")
     else:
         flags.append("Debt Worth Ratio")
