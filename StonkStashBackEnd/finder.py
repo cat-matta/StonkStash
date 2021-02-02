@@ -113,15 +113,15 @@ def driver():
     debtWorthRatio = totalLiabilities/netWorth
     cash = turnFloat(assets["Cash Only"][4])
     cANDst = turnFloat(assets["Cash & Short Term Investments"][4])
-    freeCashFlow = turnFloat(financing["Free Cash Flow"][4])
+    freeCashFlow = turnFloat(operating["Net Operating Cash Flow"][4])
     netIncome = turnFloat(operating["Net Income before Extraordinaries"][4])
     flowToIncome = freeCashFlow/netIncome
     tmoc = workingCapital/4
     cashOverTMOC = cash/tmoc
     castOverTMOC = cANDst/tmoc
-
+    
     #uncomment below to see the values
-    '''
+    
     print("Current Assets: " + str(currentAssets))
     print("Current Liabilities: " + str(currentLiabilities))
     print("Working Capital: " + str(workingCapital))
@@ -135,12 +135,58 @@ def driver():
     print("Debt Worth Ratio: " + str(debtWorthRatio))
     print("Cash: " + str(cash))
     print("Cash and Short Term Investments: " + str(cANDst))
-    print("Free Cash Flow: " + str(freeCashFlow))
+    print("Net Operating Cash Flow: " + str(freeCashFlow))
     print("Net Income: " + str(netIncome))
     print("Flow to Income: " + str(flowToIncome))
     print("3 Month Operating Costs: " + str(tmoc))
     print("Cash over 3 Month Operating Costs: " + str(cashOverTMOC))
     print("Cash and Short Term Investments over 3 Month Operating Costs: " + str(castOverTMOC))
-    '''
+    
+
+    ideals = []
+    flags = []
+    if cwcRatio < 1.2:
+        flags.append("Current Working Capital Ratio")
+    else:
+        ideals.append("Current Working Capital Ratio")
+
+    if quickRatio < 1:
+        flags.append("Quick Ratio")
+    else:
+        ideals.append("Quick Ratio")
+
+    if wcOverAssets < .12 or wcOverAssets > .3:
+        flags.append("Working Capital over Assets")
+    else:
+        ideals.append("Working Capital over Assets")
+
+    if debtWorthRatio < .4:
+        ideals.append("Debt Worth Ratio")
+    else:
+        flags.append("Debt Worth Ratio")
+
+    if netIncome < 0 or freeCashFlow < 0 or flowToIncome < 1:
+        flags.append("Net Operating Cash Flow to Net Income")
+    else:
+        ideals.append("Net Operating Cash Flow to Net Income")
+
+    if cashOverTMOC < 1:
+        flags.append("Cash over 3-Month Operating Costs")
+    else:
+        ideals.append("Cash over 3-Month Operating Costs")
+
+    if castOverTMOC < 4:
+        flags.append("Cash and Short Term Investments over 3-Month Operating Costs")
+    else:
+        ideals.append("Cash and Short Term Investments over 3-Month Operating Costs")
+
+    print()
+    print("The following ratios are worth investigating:")
+    for ratio in flags:
+        print(ratio)
+    print()
+    print("The following ratios are ideal:")
+    for ratio in ideals:
+        print(ratio)
 
 driver()
