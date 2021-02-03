@@ -1,0 +1,891 @@
+/** CSS for the Landing Page */
+/* Iteration One, by Emily */
+
+body {
+  background: linear-gradient(180deg, #061210 4.69%, #0D2520 23.44%, #032D22 35.94%, #061210 92.71%);
+}
+
+#background {
+  position: relative;
+  height: 2231px;
+  
+}
+
+/* StonkStache */
+
+#stonkstash_title {
+  /*position: absolute;*/
+  width: 219px;
+  height: 26px;
+  padding-top: 20px;
+  float:left;
+
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+#stonkstash_logo {
+  position: absolute;
+  width: 60px;
+  height: 36px;
+  left: 198px;
+  top: 15px;  
+}
+
+/* Mission */
+
+#mission_button {
+  /*position: absolute;*/
+  width: 132px;
+  height: 27px;
+  /*left: 668px;*/
+  /*top: 22px;
+  
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: 0.05em; */
+  
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+
+
+
+/* Learn */
+#learn_button {
+  /*position: absolute;*/
+  width: 112px;
+  height: 27px;
+  /*left: 793px;*/
+  /*top: 22px;
+  
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: 0.05em; */
+  
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+
+
+
+
+/* Watch */
+#watch_button {
+  /*position: absolute;*/
+  width: 112px;
+  height: 27px;
+  /*left: 1031px;*/
+  /*top: 22px;
+  
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: 0.05em; */
+  
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* Discover */
+#discover_button {
+  /*position: absolute;*/
+  width: 122px;
+  height: 27px;
+  /*left: 914px;*/
+  /*top: 22px;
+  
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: 0.05em; */
+  
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+ /* Welcome to StonkStache */
+#welcome_text {
+  position: absolute;
+  width: 601px;
+  height: 49px;
+  left: 277px;
+  top: 118px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 42px;
+  line-height: 60px;
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* The only tool you need to become a successful stock market investor. */
+
+#pitch_1 {
+  position: absolute;
+  width: 332px;
+  height: 75px;
+  left: 541px;
+  top: 193px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* Desktop and Mobile Website Coming April 2021 */
+#release_date_text {
+  
+
+
+  position: absolute;
+  width: 321px;
+  height: 49px;
+  left: 531px;
+  top: 336px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 31px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* UWS Rectangle */
+#inform_button {
+  position: absolute;
+  width: 170px;
+  height: 45px;
+  left: 599px;
+  top: 575px;
+  
+  background: #09201B;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+/* Inform me! */
+#inform_button_text {
+  position: absolute;
+  width: 136px;
+  height: 17px;
+  left: 616px;
+  top: 589px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 31px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+#pitch_phone {
+  position: absolute;
+  width: 225px;
+  height: 455px;
+  left: 295px;
+  top: 184px;
+
+  background: url("../images/pitch_phone.png");
+  border-radius: 30px;
+}
+
+/* Rectangle 18 */
+#pitch_block {
+  position: absolute;
+  width: 599px;
+  height: 253px;
+  left: 261px;
+  top: 411px;
+
+  background: rgba(59, 97, 88, 0.85);
+  border: 0.25px solid #72A599;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+/* Our mission is to help YOU use the free investing resources of today to your benefit rather than your detrimate. */
+
+#pitch_2 {
+  position: absolute;
+  width: 285px;
+  height: 112px;
+  left: 540px;
+  top: 443px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 28px;
+  /* or 175% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.05em;
+
+  color: #BCEADF;
+
+}
+
+/** Mission CSS **/
+
+/* Rectangle 22 */
+#mission_rect {
+  position: absolute;
+  width: 1152px;
+  height: 364px;
+  left: 0px;
+  top: 748px;
+
+  background: #061210;
+}
+
+/* Mission: */
+#mission_title {
+  position: absolute;
+  width: 150px;
+  height: 26px;
+  left: 500px;
+  top: 800px;
+  
+  font-family: Coda;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 40px;
+  text-align: center;
+  letter-spacing: 0.05em;
+  
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* Investing in the stock market has been localized with free platforms like Robinhood and WeBull therefore, this advancement 
+removed any barrier of entry into the stockmarket “no matter how much experience you have (or don’t have)” (Robinhood). This may 
+sound idealistic however, we emphasize the economic principle of intentions versus effects. A staggering 90% of hopeful and 
+seasoned investors lose money in the stock market; these apps removing any barrier to entry have only exacerbated that statistic. 
+Investing is no get rich quick scheme but can ensure a prosperous future if approached with the correct mindset and strategy. 
+Investing in the stock market is not hard; like most things, it entails a learning curve. Stonkstache is here to walk you through the 
+learning curve and serve as your educational tool to understanding the principles and mindset of successful investors. */
+#mission_text {
+
+
+  position: absolute;
+  width: 1047px;
+  height: 210px;
+  left: 58px;
+  top: 861px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 30px;
+  /* or 187% */
+
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/** Frame 2**/
+
+/* Frame 19544660 */
+#frame_2_rect {
+  position: absolute;
+  width: 1152px;
+  height: 674px;
+  left: 0px;
+  top: 1112px;
+}
+
+/* Frame 19544657 */
+#learn_phone {
+  
+  position: absolute;
+  width: 226px;
+  height: 456px;
+  left: 325px;
+  bottom: 126px;
+
+  /*background: url(Screen Shot 2021-01-28 at 1.45.21 PM.png);*/
+  border-radius: 30px;
+}
+
+/* A Proper Introduction to the Market */
+#learn_header {
+  position: absolute;
+  width: 441px;
+  height: 26px;
+  left: 638px;
+  bottom: 481px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 40px;
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+
+}
+
+/* We are here to walk you through everything from index funds to the mindset needed to be a successful investor. */
+#learn_text {
+  position: absolute;
+  width: 400px;
+  height: 129px;
+  left: 638px;
+  bottom: 270px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 30px;
+  /* or 187% */
+
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+
+}
+
+/* Frame 19544656 */
+#discover_phone {
+  position: absolute;
+  width: 226px;
+  height: 456px;
+  left: 325px;
+  top: 127px;
+
+  /*background: url(Screen Shot 2021-01-28 at 3.56.03 PM.png);*/
+  border-radius: 30px;  
+}
+
+/* Pinpoint the Best Index Funds and ETFs */
+#discover_header {
+  position: absolute;
+  width: 441px;
+  height: 26px;
+  left: 638px;
+  top: 204px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 45px;
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* Learn how to read a balance sheet, analyze volatility, and see through the fluff. */
+#discover_text {
+  position: absolute;
+  width: 400px;
+  height: 66px;
+  left: 638px;
+  top: 310px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+  /* or 150% */
+
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* Frame 19544657 */
+#watch_phone {
+  position: absolute;
+  width: 226px;
+  height: 456px;
+  left: 326px;
+  bottom: 126px;
+  
+  /*background: url(Screen Shot 2021-01-28 at 4.14.37 PM.png);*/
+  border-radius: 30px;
+  
+}
+
+/* Keep An Eye On Your Favorites */
+#watch_header {
+  position: absolute;
+  width: 441px;
+  height: 26px;
+  left: 618px;
+  top: 205px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 45px;
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* Save your favorite stocks and ETFs to view at a glance. */
+#watch_text {
+  position: absolute;
+  width: 400px;
+  height: 57px;
+  left: 617px;
+  top: 314px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+  /* or 150% */
+
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* Component 1 */
+.elevator { /** I have no idea what the Learn, Discover, Watch thing is called in practice. My bad yall. **/
+  position: absolute;
+  width: 114px;
+  height: 120px;
+  left: 147px;
+  bottom: 720px;
+}
+
+/* Vector 36 */
+.elevator_up_arrow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 232.14px;
+  bottom: 849.93px;
+  
+  border: 2px solid #054939;
+  transform: rotate(135deg);
+}
+
+/* Vector 35 */
+.elevator_down_arrow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 216px;
+  bottom: 681.93px;
+
+  border: 2px solid #054939;
+  transform: rotate(-45deg);
+}
+
+
+/**TODO: Determine distinction between ACTIVE level and INACTIVE LEVEL **/
+/* Learn */
+.elevator_level_one { /* Pulled from figma where LEARN is the active.*/
+  position: absolute;
+  left: 35.09%;
+  right: 2.63%;
+  top: 0%;
+  bottom: 78.33%;
+  
+  font-family: Coda;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* Discover */
+.elevator_level_two {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 39.17%;
+  bottom: 39.17%;
+  
+  font-family: Coda;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: 0.05em;
+  
+  /*color: #054939;*/ /** className="dark" **/
+}
+
+/* Watch */
+.elevator_level_three {
+  position: absolute;
+  left: 27.19%;
+  right: 2.63%;
+  top: 78.33%;
+  bottom: 0%;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: 0.05em;
+
+  /*color: #054939;*/ /** className="dark" **/
+}
+/* The INACTIVE levels have some kind of on click behavior specified in the FIGMA doc. Don't forget about that,
+Emily stresed that alot so lets make it happen.*/
+
+/** ========== **/
+/** Closing Words Section**/
+
+/* Rectangle 23 */
+#closing_rect {
+  position: absolute;
+  width: 1152px;
+  height: 201px;
+  left: -3px;
+  top: 1752px;
+  
+  background: #061210;
+}
+
+
+/* When You Make it Over the Learning Curve: Delete Us! */
+#closing_header {
+  position: absolute;
+  width: 805px;
+  height: 26px;
+  left: 39px;
+  top: 1798px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+
+}
+ /* Or hold on to this tool for its no-nonsense display of volatility and balance sheets and to reinforce the basic but nonetheless essential pillars to successful long-term investing. */
+#closing_text {
+  position: absolute;
+  width: 1081px;
+  height: 109px;
+  left: 39px;
+  top: 1844px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 30px;
+  /* or 187% */
+
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* Stonkstache is for information and educational purposes only. It is not intended to be an investment advice. Please consider the risk involved and your personal financial situation before investing or seek a duly licensed professional for investment advice. */
+#closing_disclaimer {
+  position: absolute;
+  width: 1131px;
+  height: 63px;
+  left: 14px;
+  top: 1928px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 9px;
+  line-height: 30px;
+  /* or 333% */
+
+  letter-spacing: 0.05em;
+
+  color: #33554D;
+}
+
+/** ========== **/
+/** Footer Contents **/
+
+/* Terms & Conditions */
+#terms_link {
+  position: absolute;
+  width: 196px;
+  height: 45px;
+  left: 39px;
+  top: 2000px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 30px;
+  /* or 167% */
+
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* Disclaimers */
+#disclaimers_link {
+  position: absolute;
+  width: 107px;
+  height: 44px;
+  left: 39px;
+  top: 2045px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 30px;
+  /* or 167% */
+
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* Privacy */
+#privacy_link {
+  position: absolute;
+  width: 107px;
+  height: 45px;
+  left: 39px;
+  top: 2089px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 30px;
+  /* or 167% */
+
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+
+}
+
+/* Join our monthly newsletter for early access to any information regarding the launch! */
+#newsletter_text {
+  position: absolute;
+  width: 763px;
+  height: 39px;
+  left: 360px;
+  top: 1999px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 30px;
+  /* or 167% */
+
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+
+/* Rectangle 20 */
+#newsletter_input_field {
+  position: absolute;
+  width: 362px;
+  height: 57px;
+  left: 748px;
+  top: 2045px;
+
+  background: rgba(59, 97, 88, 0.85);
+  border: 0.25px solid #72A599;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+/* Email... */
+#newsletter_input_placeholder {
+  position: absolute;
+  width: 196px;
+  height: 28px;
+  left: 773px;
+  top: 2059px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 30px;
+  /* or 167% */
+
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+
+}
+
+/* Rectangle 21 */
+#newsletter_submit_button {
+  position: absolute;
+  width: 104px;
+  height: 40px;
+  left: 990px;
+  top: 2053px;
+
+  background: #051D18;
+  border: 0.25px solid #72A599;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+/* Join! */
+#newsletter_submit_text {
+  position: absolute;
+  width: 43px;
+  height: 29px;
+  left: 1020px;
+  top: 2059px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 30px;
+  /* or 167% */
+
+  letter-spacing: 0.05em;
+
+  /*color: #94CFC1;*/ /** className="light" **/
+}
+/** ========== **/
+/** True Bottom **/
+
+/* Vector 23 */
+#bottom_stache {
+  position: absolute;
+  width: 69px;
+  height: 21px;
+  left: 538px;
+  bottom: 30px;
+
+  background: #054939;
+  border-radius: 5px;
+}
+
+/* 2021 Stonkstache. All Rights Reserved. */
+#all_rights_text {
+  position: absolute;
+  width: 235px;
+  height: 28px;
+  left: 458px;
+  bottom: 2px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 30px;
+  /* or 250% */
+
+  letter-spacing: 0.05em;
+
+  /*color: #054939;*/ /** className="dark" **/
+}
+
+
+/** ========== **/
+
+/** Common Utilities **/
+.slogan_line_right {
+  position: absolute;
+  width: 1155px;
+  height: 0px;
+  left: 1152px;
+  bottom: 278px;
+
+  border: 0.5px solid #94CFC1;
+  transform: rotate(180deg);
+}
+
+/** Classes **/
+.navbar_text {
+  padding-top: 20px;
+  float:right;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/** Color Classes**/
+
+.light {
+  color: #94CFC1;
+}
+
+.dark {
+  color: #054939;
+}
+
+
+

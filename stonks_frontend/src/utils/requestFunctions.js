@@ -31,7 +31,7 @@ async function signupCall(data) {
   })
   //console.log(`Result is: below`);
   //console.log(result)
-  return result;
+  return result; /* ATTENTION: PUT THE RETURNS HERE, NOT INSIDE THE CHAINED FUNCTIONS. DONT SCRATCH YOUR HEAD FOR HOURS OVER THIS */
 }
 
 async function loginCall(data) {
