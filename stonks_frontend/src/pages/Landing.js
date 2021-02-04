@@ -13,6 +13,9 @@ class Landing extends Component {
     return(
       <Container fluid id="background">
         <LandingNavbar></LandingNavbar>
+        <Row id="mission_rect">
+          <div id="mission_title" className="light">Mission</div>
+        </Row>
       </Container>
     )
   }
