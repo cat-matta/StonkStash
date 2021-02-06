@@ -285,10 +285,11 @@ body {
 
 /* Mission: */
 #mission_title {
-  position: absolute;
+  /*position: absolute;*/
   width: 150px;
   height: 26px;
   display: block;
+  margin: 0 auto;
   
   
   font-family: Coda;
@@ -296,7 +297,7 @@ body {
   font-weight: 800;
   font-size: 28px;
   line-height: 40px;
-  /*text-align: center;*/ /* This doesn't seem to be working as intended. */
+  text-align: center; /* This doesn't seem to be working as intended. */
   letter-spacing: 0.05em;
   
   /*color: #94CFC1;*/ /** className="light" **/
