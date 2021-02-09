@@ -1,6 +1,11 @@
 /** CSS for the Landing Page */
 /* Iteration One, by Emily */
 
+/** borrowed from bootstrap **/
+
+
+/** Our Created Styles **/
+
 body {
   background: linear-gradient(180deg, #061210 4.69%, #0D2520 23.44%, #032D22 35.94%, #061210 92.71%);
 }
@@ -14,7 +19,6 @@ body {
 /* StonkStache */
 
 #stonkstash_title {
-  /*position: absolute;*/
   width: 219px;
   height: 26px;
   padding-top: 20px;
@@ -33,11 +37,10 @@ body {
 }
 
 #stonkstash_logo {
-  position: absolute;
   width: 60px;
   height: 36px;
-  left: 198px;
-  top: 15px;  
+  /*left: 198px;
+  top: 15px;  */ 
 }
 
 /* Mission */
@@ -273,12 +276,13 @@ body {
 
 /* Rectangle 22 */
 #mission_rect {
-  position: absolute;
+  /*position: absolute;*/
   width: 100%;
   height: 364px;
-  left: 0px;
-  top: 748px;
+  /*left: 0px;
+  top: 748px;*/
   padding: 20px;
+  display: block;
 
   background: #061210;
 }
@@ -287,7 +291,7 @@ body {
 #mission_title {
   /*position: absolute;*/
   width: 150px;
-  height: 26px;
+  /*height: 26px;*/
   display: block;
   margin: 0 auto;
   
@@ -297,7 +301,7 @@ body {
   font-weight: 800;
   font-size: 28px;
   line-height: 40px;
-  text-align: center; /* This doesn't seem to be working as intended. */
+  text-align: center; 
   letter-spacing: 0.05em;
   
   /*color: #94CFC1;*/ /** className="light" **/
@@ -313,16 +317,19 @@ learning curve and serve as your educational tool to understanding the principle
 #mission_text {
 
 
-  position: absolute;
+  /*position: absolute; */
   width: 1047px;
   height: 210px;
-  left: 58px;
-  top: 861px;
+  /*left: 58px;
+  top: 861px; */
+  margin: 25px auto;
+  text-align: center; 
 
+  
   font-family: Coda;
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 1.25em;
   line-height: 30px;
   /* or 187% */
 
@@ -335,11 +342,15 @@ learning curve and serve as your educational tool to understanding the principle
 
 /* Frame 19544660 */
 #frame_2_rect {
-  position: absolute;
-  width: 1152px;
+  /*position: absolute;*/
+  width: 100%;
   height: 674px;
-  left: 0px;
-  top: 1112px;
+  /*left: 0px;
+  top: 1112px; */
+}
+
+#frame_2_rect > div {
+  display: inline;
 }
 
 /* Frame 19544657 */
@@ -348,8 +359,8 @@ learning curve and serve as your educational tool to understanding the principle
   position: absolute;
   width: 226px;
   height: 456px;
-  left: 325px;
-  bottom: 126px;
+  /*left: 325px;
+  bottom: 126px;*/
 
   /*background: url(Screen Shot 2021-01-28 at 1.45.21 PM.png);*/
   border-radius: 30px;
@@ -498,47 +509,55 @@ learning curve and serve as your educational tool to understanding the principle
 
 /* Component 1 */
 .elevator { /** I have no idea what the Learn, Discover, Watch thing is called in practice. My bad yall. **/
-  position: absolute;
-  width: 114px;
-  height: 120px;
-  left: 147px;
-  bottom: 720px;
+  /*position: absolute;*/
+  /*width: 114px;
+  height: 120px; */
+  /*left: 147px;
+  bottom: 720px;*/
+  vertical-align: middle;
+
+
 }
+
+
 
 /* Vector 36 */
 .elevator_up_arrow {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  left: 232.14px;
-  bottom: 849.93px;
+  /*position: absolute;*/
+  /*width: 10px;
+  height: 10px; */
+  /*left: 232.14px;
+  bottom: 849.93px;*/
+
   
-  border: 2px solid #054939;
-  transform: rotate(135deg);
+  /*border: 2px solid #054939;*/
+  /*transform: rotate(135deg);*/
 }
 
 /* Vector 35 */
 .elevator_down_arrow {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  left: 216px;
-  bottom: 681.93px;
+  /*position: absolute;*/
+  /*width: 10px;
+  height: 10px; */
+  /*left: 216px;
+  bottom: 681.93px;*/
 
-  border: 2px solid #054939;
-  transform: rotate(-45deg);
+
+  /*border: 2px solid #054939;*/
+  /*transform: rotate(-45deg);*/
 }
 
 
 /**TODO: Determine distinction between ACTIVE level and INACTIVE LEVEL **/
 /* Learn */
 .elevator_level_one { /* Pulled from figma where LEARN is the active.*/
-  position: absolute;
-  left: 35.09%;
+  /*position: absolute;*/
+  /*left: 35.09%;
   right: 2.63%;
   top: 0%;
-  bottom: 78.33%;
-  
+  bottom: 78.33%; */
+
+
   font-family: Coda;
   font-style: normal;
   font-weight: 800;
@@ -552,11 +571,12 @@ learning curve and serve as your educational tool to understanding the principle
 
 /* Discover */
 .elevator_level_two {
-  position: absolute;
-  left: 0%;
+  /*position: absolute;*/
+  /*left: 0%;
   right: 0%;
   top: 39.17%;
-  bottom: 39.17%;
+  bottom: 39.17%;*/
+ 
   
   font-family: Coda;
   font-style: normal;
@@ -571,11 +591,12 @@ learning curve and serve as your educational tool to understanding the principle
 
 /* Watch */
 .elevator_level_three {
-  position: absolute;
-  left: 27.19%;
+  /*position: absolute;*/
+  /*left: 27.19%;
   right: 2.63%;
   top: 78.33%;
-  bottom: 0%;
+  bottom: 0%;*/
+ 
 
   font-family: Coda;
   font-style: normal;
@@ -882,7 +903,7 @@ Emily stresed that alot so lets make it happen.*/
 /** Color Classes**/
 
 .light {
-  color: #94CFC1;
+  color: #94CFC1 !important;
 }
 
 .dark {

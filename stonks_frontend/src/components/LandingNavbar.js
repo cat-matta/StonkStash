@@ -8,9 +8,11 @@ class LandingNavbar extends Component {
 
   render() {
     return(
-      <Navbar>
+      
+      <Navbar fixed="top">
         <Navbar.Brand href="/" 
-          id="stonkstash_title">
+          id="stonkstash_title"
+          className="light">
           Stonkstash{' '}
           <img alt="sinister moustache man"
           id="stonkstash_logo"
@@ -18,8 +20,8 @@ class LandingNavbar extends Component {
           className="d-inline align-top" 
           />
         </Navbar.Brand>
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+          <Nav>
             <Nav.Link href="#mission" id="mission_button" className="light navbar_text">Mission</Nav.Link>
             <Nav.Link href="#learn" id="learn_button" className="light navbar_text">Learn</Nav.Link>
             <Nav.Link href="#discover" id="discover_button" className="light navbar_text">Discover</Nav.Link>

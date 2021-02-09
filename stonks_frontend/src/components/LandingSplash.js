@@ -1,9 +1,10 @@
 import {Component} from 'react';
+import {Row, Col} from 'react-bootstrap';
 
 /** The whole "Welcome to STONKSTASH" block */
 class LandingSplash extends Component {
   render() {
-      return(<h1>yeet</h1>)
+      return(<Row><Col>yeet</Col></Row>)
   }
 }
 
