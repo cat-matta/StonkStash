@@ -1,5 +1,5 @@
-from stonks_math.main import *
-from stonks_math.sciencestuff import *
+from stonks_backend.main import *
+from stonks_backend.sciencestuff import *
 from stonks_server.server import server
 from stonks_server.auth import auth
 
