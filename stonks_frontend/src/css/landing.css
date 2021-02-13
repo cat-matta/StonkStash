@@ -11,17 +11,14 @@ body {
 }
 
 #background {
-  position: relative;
-  /*height: 2231px;*/
-  
+  position: relative;  
 }
+/** NAVBAR STYLES **/
 
 /* StonkStache */
-
 #stonkstash_title {
   width: 219px;
   height: 26px;
-  padding-top: 20px;
   float: left;
 
 
@@ -39,27 +36,14 @@ body {
 #stonkstash_logo {
   width: 60px;
   height: 36px;
-  /*left: 198px;
-  top: 15px;  */ 
 }
 
 /* Mission */
 
 #mission_button {
-  /*position: absolute;*/
   width: 132px;
   height: 27px;
-  /*left: 668px;*/
-  /*top: 22px;
-  
-  font-family: Coda;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 28px;
-  text-align: center;
-  letter-spacing: 0.05em; */
-  
+
   /*color: #94CFC1;*/ /** className="light" **/
 }
 
@@ -68,19 +52,8 @@ body {
 
 /* Learn */
 #learn_button {
-  /*position: absolute;*/
   width: 112px;
   height: 27px;
-  /*left: 793px;*/
-  /*top: 22px;
-  
-  font-family: Coda;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 28px;
-  text-align: center;
-  letter-spacing: 0.05em; */
   
   /*color: #94CFC1;*/ /** className="light" **/
 }
@@ -91,49 +64,35 @@ body {
 
 /* Watch */
 #watch_button {
-  /*position: absolute;*/
   width: 112px;
   height: 27px;
-  /*left: 1031px;*/
-  /*top: 22px;
-  
-  font-family: Coda;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 28px;
-  text-align: center;
-  letter-spacing: 0.05em; */
-  
+ 
   /*color: #94CFC1;*/ /** className="light" **/
 }
 
 /* Discover */
 #discover_button {
-  /*position: absolute;*/
   width: 122px;
   height: 27px;
-  /*left: 914px;*/
-  /*top: 22px;
-  
-  font-family: Coda;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 28px;
-  text-align: center;
-  letter-spacing: 0.05em; */
   
   /*color: #94CFC1;*/ /** className="light" **/
 }
 
+/** SPLASH, the first section (following the navbar ofc) **/
+
+#splash {
+  width: auto;
+  margin-top: 60px;
+}
+
  /* Welcome to StonkStache */
 #welcome_text {
-  position: absolute;
+
   width: 601px;
   height: 49px;
-  left: 277px;
-  top: 118px;
+  display: block;
+  margin: 0 auto;
+  text-align: center; 
 
   font-family: Coda;
   font-style: normal;
@@ -147,12 +106,10 @@ body {
 
 /* The only tool you need to become a successful stock market investor. */
 
-#pitch_1 {
-  position: absolute;
+#pitch_text {
   width: 332px;
   height: 75px;
-  left: 541px;
-  top: 193px;
+
 
   font-family: Coda;
   font-style: normal;
@@ -166,14 +123,8 @@ body {
 
 /* Desktop and Mobile Website Coming April 2021 */
 #release_date_text {
-  
-
-
-  position: absolute;
   width: 321px;
   height: 49px;
-  left: 531px;
-  top: 336px;
 
   font-family: Coda;
   font-style: normal;
@@ -223,17 +174,16 @@ body {
 }
 
 #pitch_phone {
-  position: absolute;
   width: 225px;
   height: 455px;
-  left: 295px;
-  top: 184px;
+  z-index: 1;
+  position: absolute;
 
-  background: url("../images/pitch_phone.png");
+
   border-radius: 30px;
 }
 
-/* Rectangle 18 */
+/* Rectangle 18, the thing under half the phone, that block of text, and the button. */
 #pitch_block {
   position: absolute;
   width: 599px;
@@ -249,7 +199,7 @@ body {
 
 /* Our mission is to help YOU use the free investing resources of today to your benefit rather than your detrimate. */
 
-#pitch_2 {
+#pitch_mission {
   position: absolute;
   width: 285px;
   height: 112px;
