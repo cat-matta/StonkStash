@@ -9,7 +9,7 @@ class LandingNavbar extends Component {
   render() {
     return(
       
-      <Navbar fixed="top">
+      <Navbar>
         <Navbar.Brand href="/" 
           id="stonkstash_title"
           className="light">

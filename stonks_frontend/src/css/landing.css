@@ -11,18 +11,15 @@ body {
 }
 
 #background {
-  position: relative;
-  height: 2231px;
-  
+  position: relative;  
 }
+/** NAVBAR STYLES **/
 
 /* StonkStache */
-
 #stonkstash_title {
   width: 219px;
   height: 26px;
-  padding-top: 20px;
-  float:left;
+  float: left;
 
 
   font-family: Coda;
@@ -39,27 +36,14 @@ body {
 #stonkstash_logo {
   width: 60px;
   height: 36px;
-  /*left: 198px;
-  top: 15px;  */ 
 }
 
 /* Mission */
 
 #mission_button {
-  /*position: absolute;*/
   width: 132px;
   height: 27px;
-  /*left: 668px;*/
-  /*top: 22px;
-  
-  font-family: Coda;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 28px;
-  text-align: center;
-  letter-spacing: 0.05em; */
-  
+
   /*color: #94CFC1;*/ /** className="light" **/
 }
 
@@ -68,19 +52,8 @@ body {
 
 /* Learn */
 #learn_button {
-  /*position: absolute;*/
   width: 112px;
   height: 27px;
-  /*left: 793px;*/
-  /*top: 22px;
-  
-  font-family: Coda;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 28px;
-  text-align: center;
-  letter-spacing: 0.05em; */
   
   /*color: #94CFC1;*/ /** className="light" **/
 }
@@ -91,49 +64,35 @@ body {
 
 /* Watch */
 #watch_button {
-  /*position: absolute;*/
   width: 112px;
   height: 27px;
-  /*left: 1031px;*/
-  /*top: 22px;
-  
-  font-family: Coda;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 28px;
-  text-align: center;
-  letter-spacing: 0.05em; */
-  
+ 
   /*color: #94CFC1;*/ /** className="light" **/
 }
 
 /* Discover */
 #discover_button {
-  /*position: absolute;*/
   width: 122px;
   height: 27px;
-  /*left: 914px;*/
-  /*top: 22px;
-  
-  font-family: Coda;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 28px;
-  text-align: center;
-  letter-spacing: 0.05em; */
   
   /*color: #94CFC1;*/ /** className="light" **/
 }
 
+/** SPLASH, the first section (following the navbar ofc) **/
+
+#splash {
+  width: auto;
+  margin-top: 60px;
+}
+
  /* Welcome to StonkStache */
 #welcome_text {
-  position: absolute;
+
   width: 601px;
   height: 49px;
-  left: 277px;
-  top: 118px;
+  display: block;
+  margin: 0 auto;
+  text-align: center; 
 
   font-family: Coda;
   font-style: normal;
@@ -147,12 +106,10 @@ body {
 
 /* The only tool you need to become a successful stock market investor. */
 
-#pitch_1 {
-  position: absolute;
+#pitch_text {
   width: 332px;
   height: 75px;
-  left: 541px;
-  top: 193px;
+
 
   font-family: Coda;
   font-style: normal;
@@ -166,14 +123,8 @@ body {
 
 /* Desktop and Mobile Website Coming April 2021 */
 #release_date_text {
-  
-
-
-  position: absolute;
   width: 321px;
   height: 49px;
-  left: 531px;
-  top: 336px;
 
   font-family: Coda;
   font-style: normal;
@@ -223,17 +174,16 @@ body {
 }
 
 #pitch_phone {
-  position: absolute;
   width: 225px;
   height: 455px;
-  left: 295px;
-  top: 184px;
+  z-index: 1;
+  position: absolute;
 
-  background: url("../images/pitch_phone.png");
+
   border-radius: 30px;
 }
 
-/* Rectangle 18 */
+/* Rectangle 18, the thing under half the phone, that block of text, and the button. */
 #pitch_block {
   position: absolute;
   width: 599px;
@@ -249,7 +199,7 @@ body {
 
 /* Our mission is to help YOU use the free investing resources of today to your benefit rather than your detrimate. */
 
-#pitch_2 {
+#pitch_mission {
   position: absolute;
   width: 285px;
   height: 112px;
@@ -277,7 +227,7 @@ body {
 /* Rectangle 22 */
 #mission_rect {
   /*position: absolute;*/
-  width: 100%;
+  /*width: 100%;*/
   height: 364px;
   /*left: 0px;
   top: 748px;*/
@@ -285,6 +235,8 @@ body {
   display: block;
 
   background: #061210;
+  border-top: 0.5px solid #94CFC1;
+  border-bottom: 0.5px solid #94CFC1;
 }
 
 /* Mission: */
@@ -616,23 +568,27 @@ Emily stresed that alot so lets make it happen.*/
 
 /* Rectangle 23 */
 #closing_rect {
-  position: absolute;
-  width: 1152px;
+  /*width: 100%;*/
   height: 201px;
-  left: -3px;
-  top: 1752px;
+  /*left: -3px;
+  top: 1752px; */
+  padding-top: 45px;
+  padding-left: 40px;
   
   background: #061210;
+  border-top: 0.5px solid #94CFC1;
+  border-bottom: 0.5px solid #94CFC1;
 }
 
 
 /* When You Make it Over the Learning Curve: Delete Us! */
 #closing_header {
-  position: absolute;
   width: 805px;
   height: 26px;
-  left: 39px;
-  top: 1798px;
+  /*left: 39px;
+  top: 1798px;*/
+  margin-bottom: 20px;
+  
 
   font-family: Coda;
   font-style: normal;
@@ -646,11 +602,9 @@ Emily stresed that alot so lets make it happen.*/
 }
  /* Or hold on to this tool for its no-nonsense display of volatility and balance sheets and to reinforce the basic but nonetheless essential pillars to successful long-term investing. */
 #closing_text {
-  position: absolute;
   width: 1081px;
-  height: 109px;
-  left: 39px;
-  top: 1844px;
+  /*left: 39px;
+  top: 1844px; */
 
   font-family: Coda;
   font-style: normal;
@@ -666,11 +620,10 @@ Emily stresed that alot so lets make it happen.*/
 
 /* Stonkstache is for information and educational purposes only. It is not intended to be an investment advice. Please consider the risk involved and your personal financial situation before investing or seek a duly licensed professional for investment advice. */
 #closing_disclaimer {
-  position: absolute;
   width: 1131px;
   height: 63px;
-  left: 14px;
-  top: 1928px;
+  /*left: 14px;
+  top: 1928px;*/
 
   font-family: Coda;
   font-style: normal;
@@ -685,15 +638,22 @@ Emily stresed that alot so lets make it happen.*/
 }
 
 /** ========== **/
+
+#footer_rect {
+  margin-top: 45px;
+  margin-left: 10px;
+  margin-bottom: 45px;
+}
+
 /** Footer Contents **/
 
 /* Terms & Conditions */
 #terms_link {
-  position: absolute;
+
   width: 196px;
   height: 45px;
-  left: 39px;
-  top: 2000px;
+  display: block;
+
 
   font-family: Coda;
   font-style: normal;
@@ -709,11 +669,11 @@ Emily stresed that alot so lets make it happen.*/
 
 /* Disclaimers */
 #disclaimers_link {
-  position: absolute;
+
   width: 107px;
   height: 44px;
-  left: 39px;
-  top: 2045px;
+  display: block;
+
 
   font-family: Coda;
   font-style: normal;
@@ -729,11 +689,11 @@ Emily stresed that alot so lets make it happen.*/
 
 /* Privacy */
 #privacy_link {
-  position: absolute;
+
   width: 107px;
   height: 45px;
-  left: 39px;
-  top: 2089px;
+  display: block;
+
 
   font-family: Coda;
   font-style: normal;
@@ -750,11 +710,10 @@ Emily stresed that alot so lets make it happen.*/
 
 /* Join our monthly newsletter for early access to any information regarding the launch! */
 #newsletter_text {
-  position: absolute;
   width: 763px;
   height: 39px;
-  left: 360px;
-  top: 1999px;
+  display: block;
+
 
   font-family: Coda;
   font-style: normal;
@@ -770,11 +729,15 @@ Emily stresed that alot so lets make it happen.*/
 
 /* Rectangle 20 */
 #newsletter_input_field {
-  position: absolute;
-  width: 362px;
+  width: fit-content;
   height: 57px;
-  left: 748px;
-  top: 2045px;
+  display: inline;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 30px;
 
   background: rgba(59, 97, 88, 0.85);
   border: 0.25px solid #72A599;
@@ -784,11 +747,9 @@ Emily stresed that alot so lets make it happen.*/
 
 /* Email... */
 #newsletter_input_placeholder {
-  position: absolute;
   width: 196px;
   height: 28px;
-  left: 773px;
-  top: 2059px;
+
 
   font-family: Coda;
   font-style: normal;
@@ -805,16 +766,23 @@ Emily stresed that alot so lets make it happen.*/
 
 /* Rectangle 21 */
 #newsletter_submit_button {
-  position: absolute;
   width: 104px;
   height: 40px;
-  left: 990px;
-  top: 2053px;
+  display: inline;
 
   background: #051D18;
-  border: 0.25px solid #72A599;
+  /*border: 0.25px solid #72A599;*/
   box-sizing: border-box;
   border-radius: 10px;
+
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 30px;
+  /* or 167% */
+
+  letter-spacing: 0.05em;
 }
 
 /* Join! */
@@ -822,8 +790,7 @@ Emily stresed that alot so lets make it happen.*/
   position: absolute;
   width: 43px;
   height: 29px;
-  left: 1020px;
-  top: 2059px;
+
 
   font-family: Coda;
   font-style: normal;
@@ -841,23 +808,18 @@ Emily stresed that alot so lets make it happen.*/
 
 /* Vector 23 */
 #bottom_stache {
-  position: absolute;
   width: 69px;
   height: 21px;
-  left: 538px;
-  bottom: 30px;
+  display: block;
 
-  background: #054939;
   border-radius: 5px;
 }
 
 /* 2021 Stonkstache. All Rights Reserved. */
 #all_rights_text {
-  position: absolute;
   width: 235px;
   height: 28px;
-  left: 458px;
-  bottom: 2px;
+  display: block;
 
   font-family: Coda;
   font-style: normal;
