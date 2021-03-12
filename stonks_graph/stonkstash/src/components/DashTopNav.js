@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Navbar, Nav} from 'react-bootstrap';
 
 /* The navbar at the top of the dashboard.
  * Width is end to end. 
@@ -10,7 +11,11 @@ class DashTopNav extends Component {
 
     
     render() {
-        return(<h1>in dev</h1>);
+        return(
+        <Navbar expand="lg" variant="" bg="" className="navbar-top">
+            <Navbar.Brand href="#">Navbar</Navbar.Brand>
+        </Navbar>
+        );
     }
 }
 

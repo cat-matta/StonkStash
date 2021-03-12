@@ -1,0 +1,45 @@
+body {
+    background-color: #081714 !important;
+}
+
+.navbar-top
+{
+  /* Top Menu Bar */
+
+
+/* position: absolute;
+width: 1152px; */
+height: 61px;
+/* left: 0px;
+top: 0px; */
+
+background: #09201B !important;
+border: 0.5px solid #054939;
+box-sizing: border-box;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Bottom Menu Bar */
+.bottom-menu-bar
+{
+position: absolute;
+width: 1153px;
+height: 61px;
+left: -4px;
+top: 727px;
+
+border: 0.5px solid #054939;
+box-sizing: border-box;
+filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.graph-parent {
+    height: 500px; /* If height not spec'd on nivo graph parent, will not render. */
+}
+
+/* Altering some of the imported CSS from Bootstrap */
+
+.container-fluid, .container {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
