@@ -25,10 +25,13 @@ class Dashboard extends Component {
         <Container fluid>
             <DashTopNav />
             <Row>  
-            <Col xs={7} className="graph-parent">
-                <DashGraphView />
-            </Col>
+                <Col xs={7} className="graph-parent">
+                    <DashGraphView />
+                </Col>
                 <Col className="right-menu">sidemenu</Col>
+            </Row>
+            <Row className="bottom-menu-bar">
+                <DashBottomNav />
             </Row>
 
         </Container>)
