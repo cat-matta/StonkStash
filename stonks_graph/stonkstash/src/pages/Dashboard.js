@@ -24,11 +24,11 @@ class Dashboard extends Component {
         return(
         <Container fluid>
             <DashTopNav />
-            <Row>
-                <Col xs={7} className="graph-parent">
-                    <DashGraphView />
-                </Col>
-                <Col>sidemenu</Col>
+            <Row>  
+            <Col xs={7} className="graph-parent">
+                <DashGraphView />
+            </Col>
+                <Col className="right-menu">sidemenu</Col>
             </Row>
 
         </Container>)
