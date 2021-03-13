@@ -120,28 +120,27 @@ def driver():
     cashOverTMOC = cash/tmoc
     castOverTMOC = cANDst/tmoc
     
-    #uncomment below to see the values
-    
-    print("Current Assets: " + str(currentAssets))
-    print("Current Liabilities: " + str(currentLiabilities))
-    print("Working Capital: " + str(workingCapital))
-    print("Current Working Capital Ratio: " + str(cwcRatio))
-    print("Inventory: " + str(inventory))
-    print("Quick Ratio: " + str(quickRatio))
-    print("Total Assets: " + str(totalAssets))
-    print("Working Capital Over Assets: " + str(wcOverAssets))
-    print("Total Liabilities: " + str(totalLiabilities))
-    print("Net Worth: " + str(netWorth))
-    print("Debt Worth Ratio: " + str(debtWorthRatio))
-    print("Cash: " + str(cash))
-    print("Cash and Short Term Investments: " + str(cANDst))
-    print("Net Operating Cash Flow: " + str(freeCashFlow))
-    print("Net Income: " + str(netIncome))
-    print("Flow to Income: " + str(flowToIncome))
-    print("3 Month Operating Costs: " + str(tmoc))
-    print("Cash over 3 Month Operating Costs: " + str(cashOverTMOC))
-    print("Cash and Short Term Investments over 3 Month Operating Costs: " + str(castOverTMOC))
-    
+    result = dict()
+    result["Current Assets"] = currentAssets
+    result["Current Liabilities"] = currentLiabilities
+    result["Working Capital"] = workingCapital
+    result["CWC Ratio"] = cwcRatio
+    result["Inventory"] = inventory
+    result["Quick Ratio"] = quickRatio
+    result["Total Assets"] = totalAssets
+    result["Working Capital Over Assets"] = wcOverAssets
+    result["Total Liabilities"] = totalLiabilities
+    result["Net Worth"] = netWorth
+    result["Debt Worth Ratio"] = debtWorthRatio
+    result["Cash"] = cash
+    result["Cash and Short Term Investments"] = cANDst
+    result["Net Operating Cash Flow"] = freeCashFlow
+    result["Net Income"] = netIncome
+    result["Flow to Income"] = flowToIncome
+    result["3 Month Operating Costs"] = tmoc
+    result["Cash Over 3 Month Operating Costs"] = cashOverTMOC
+    result["C&ST Over TMOC"] = castOverTMOC
+  
 
     ideals = []
     flags = []
@@ -180,13 +179,9 @@ def driver():
     else:
         ideals.append("Cash and Short Term Investments over 3-Month Operating Costs")
 
-    print()
-    print("The following ratios are worth investigating:")
-    for ratio in flags:
-        print(ratio)
-    print()
-    print("The following ratios are ideal:")
-    for ratio in ideals:
-        print(ratio)
+    result["flags"] = flags
+    result["ideals"] = ideals
+    return result
 
-driver()
+#uncomment below to run this file by itself
+#driver()
