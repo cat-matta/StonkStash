@@ -1,8 +1,11 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, send_from_directory, current_app
 import json
 #from . import db
+import os
 
 server = Blueprint('server', __name__,static_folder="static")
+
+
 # stock_name="TSLA"
 # stock_date="2021-01-21"
 # plotname=driver(stock_name,stock_date)
@@ -113,3 +116,13 @@ def login():
         return json.dumps({"message": "Loggin in!"}) # This may not even be the way to do it but we will figure it out
     if request.method == 'GET':
         return """<h1> Fields are email and password </h1>"""
+
+
+"""File download stuff"""
+@server.route('/download/<path:filename>', methods=['GET', 'POST'])
+def download(filename):
+    try:
+        uploads = os.path.join(current_app.root_path, current_app.config['DOWNLOADS'])
+        return send_from_directory(directory=uploads, filename=filename)
+    except Exception as e:
+        print(e)
