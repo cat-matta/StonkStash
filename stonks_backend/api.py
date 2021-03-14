@@ -1,7 +1,10 @@
 from flask import Flask
-from finder import driver
+from .finder import driver
 
 app = Flask(__name__)
 
 @app.route('/info')
-driver()
+def main():
+    stonks = dict()
+    stonks = driver()
+    return stonks
