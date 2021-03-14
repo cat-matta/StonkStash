@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { Line } from '@nivo/line';
 import AutoSizer from "react-virtualized-auto-sizer"; // cause nivo's responsive components dont play nice within flexbox or css flex components
 
@@ -62,9 +63,14 @@ const bottom_theme = {
  * graphs on the Dashboard page. This can be one line graph at a time per a given, or two line graphs.
  * This will likely be determined by some outward forces/inputs.
  * 
+ * There is also the matter of different control bars being displayed for the graph view depending on, again, those outward forces/inputs.
+ * The graphs size/resize themselves well so lets hope introducing some more things doesn't cause it to shit the bed.
+ * 
+ * ALSO THE graph(s) should always come with a radiobox button group to switch between time series's.
+ * 
  * The data itself, I'll try to make sense of here.
- * @property  price_data  Data of a stocks price over some time series
- * @property  
+ * @property  priceData  Data of a stocks price over some time series
+ * @property  otherData  Data for the blue and red graph (will be properly named once info is provided)
  */
 class DashGraphView extends Component {
 
@@ -86,175 +92,19 @@ class DashGraphView extends Component {
         // }
         // manner. The "color" {string} property doesn't matter. Nivo uses color palettes spec'd in the graph component declaration.
         this.state = {
-            data: [
-                {
-                  "id": "stonk",
-                  "color": "#94CFC1",
-                  "data": [
-                    {
-                      "x": 0,
-                      "y": 256
-                    },
-                    {
-                      "x": 1,
-                      "y": 218
-                    },
-                    {
-                      "x": 2,
-                      "y": 9
-                    },
-                    {
-                      "x": 3,
-                      "y": 274
-                    },
-                    {
-                      "x": 4,
-                      "y": 54
-                    },
-                    {
-                      "x": 5,
-                      "y": 270
-                    },
-                    {
-                      "x": 6,
-                      "y": 263
-                    },
-                    {
-                      "x": 7,
-                      "y": 75
-                    },
-                    {
-                      "x": 8,
-                      "y": 46
-                    },
-                    {
-                      "x": 9,
-                      "y": 181
-                    },
-                    {
-                      "x": 10,
-                      "y": 200
-                    },
-                    {
-                      "x": 11,
-                      "y": 140
-                    }
-                  ]
-                }
-              ],
-              data2: [
-                {
-                  "id": "blue",
-                  "data": [
-                    {
-                      "x": 0,
-                      "y": 80
-                    },
-                    {
-                      "x": 1,
-                      "y": 76
-                    },
-                    {
-                      "x": 2,
-                      "y": 70
-                    },
-                    {
-                      "x": 3,
-                      "y": 95
-                    },
-                    {
-                      "x": 4,
-                      "y": 55
-                    },
-                    {
-                      "x": 5,
-                      "y": 96
-                    },
-                    {
-                      "x": 6,
-                      "y": 90
-                    },
-                    {
-                      "x": 7,
-                      "y": 35
-                    },
-                    {
-                      "x": 8,
-                      "y": 75
-                    },
-                    {
-                      "x": 9,
-                      "y": 65
-                    },
-                    {
-                      "x": 10,
-                      "y": 85
-                    },
-                    {
-                      "x": 11,
-                      "y": 30
-                    }
-                  ]
-                },
-                {
-                    "id": "red",
-                    "data": [
-                      {
-                        "x": 0,
-                        "y": 40
-                      },
-                      {
-                        "x": 1,
-                        "y": 48
-                      },
-                      {
-                        "x": 2,
-                        "y": 5
-                      },
-                      {
-                        "x": 3,
-                        "y": 45
-                      },
-                      {
-                        "x": 4,
-                        "y": 4
-                      },
-                      {
-                        "x": 5,
-                        "y": 10
-                      },
-                      {
-                        "x": 6,
-                        "y": 25
-                      },
-                      {
-                        "x": 7,
-                        "y": 34
-                      },
-                      {
-                        "x": 8,
-                        "y": 50
-                      },
-                      {
-                        "x": 9,
-                        "y": 35
-                      },
-                      {
-                        "x": 10,
-                        "y": 15
-                      },
-                      {
-                        "x": 11,
-                        "y": 20
-                      }
-                    ]
-                  }
-              ]
-        }
-        
+            data: this.props.priceData, // single line info
+            data2: this.props.otherData, // double line info
+            time_choice: "1D"
+        };
 
-        // state stuff
     }
+
+        // Responds to changes in selected time series choice
+        onChange = val => {
+
+            this.setState({ time_choice: val });
+            this.props.cb(val);
+        }
 
     render() {
         /** The addition of the AutoSizer wrapper was neccesary due to the <ResponsiveLine> graph component
@@ -268,7 +118,15 @@ class DashGraphView extends Component {
         return(
             <AutoSizer> 
                 {({ height, width }) => (
-                    <div >
+                    <div>
+                        <ToggleButtonGroup name="graph-time-bar" className ="graph-time-group" type="radio" value={this.state.selection} onChange={this.onChange} defaultValue={this.state.selection} >
+                            <ToggleButton value={"1D"} variant="" id="1D" className="graph-time-button">1D</ToggleButton>
+                            <ToggleButton value={"1W"} variant="" id="1W" className="graph-time-button">1W</ToggleButton>
+                            <ToggleButton value={"1M"} variant="" id="1M" className="graph-time-button">1M</ToggleButton>
+                            <ToggleButton value={"6M"} variant="" id="6M" className="graph-time-button">6M</ToggleButton>
+                            <ToggleButton value={"1YR"} variant="" id="1YR" className="graph-time-button">1YR</ToggleButton>
+                            <ToggleButton value={"5YR"} variant="" id="5YR" className="graph-time-button">5YR</ToggleButton>
+                        </ToggleButtonGroup>
                         <Line
                             data={this.state.data}
                             theme={top_theme}
