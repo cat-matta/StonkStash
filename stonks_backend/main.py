@@ -22,6 +22,11 @@ def getStockPrice(companySymbol):
     lowPrice = stockPriceJSON['l']
     return highPrice, lowPrice
 
+#params:
+#companySymbol is the stock symbol ('AAPL', for example)
+#resolution can be any of 1,5,15,30,60,D,W,M (1-60 is seconds, D is day, W is week, M is Monthly)
+#end is the end date of the period you want to get stock info for
+#period is the length of time you want to get stock info for
 def getStockCandles(companySymbol,resolution,end,period):
     end = int(time.mktime(dt.datetime.strptime(end, "%Y-%m-%d").timetuple()))
     start = end - periods[period]
@@ -33,19 +38,3 @@ def getStockCandlesToday(companySymbol):
     start = end - periods["m"]
     candles = finnhub_client.stock_candles(companySymbol,'D',start,end)
     return candles
-
-#to see the high and low price of a stock with symbol AMZN (for example), use the following line
-#getStockPrice('AMZN')
-
-
-
-##adding riskycalulations below
-
-
-
-
-
-
-
-res = finnhub_client.stock_candles('AMZN', 'D', 1590988249, 1591852249)
-print(res)
