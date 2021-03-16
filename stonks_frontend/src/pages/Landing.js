@@ -14,20 +14,6 @@ require('bootstrap');
 /** The main page/first page of the site, for new users and onlookers. */
 
 class Landing extends Component {
-  state = {
-    info: {}
-  }
-
-/**this function will update info to have the response you see in the console**/
-/**but I don't know how to call this function inside the class**/
-/**and I'm not even sure if I should have info as a state variable **/
-  getJSON() {
-      fetch('/info').then(function (response) {
-          return response.json();
-      }).then(function (text) {
-          this.setState({info: text});
-      });
-  }
     
   render() {
     // No logic regarding changes in UI is expected here but space is reserved if so.
@@ -40,7 +26,7 @@ class Landing extends Component {
           <p id="mission_text" className="light">Investing in the stock market has been localized with free platforms like Robinhood and WeBull therefore, this advancement 
 removed any barrier of entry into the stockmarket “no matter how much experience you have (or don’t have)” (Robinhood). This may 
 sound idealistic however, we emphasize the economic principle of intentions versus effects. A staggering 90% of hopeful and 
-seasoned investors lose money in the stock market; these apps removing any barrier to entry have only exacerbated that statistic.qq
+seasoned investors lose money in the stock market; these apps removing any barrier to entry have only exacerbated that statistic. {this.data}
 Investing is no get rich quick scheme but can ensure a prosperous future if approached with the correct mindset and strategy. 
 Investing in the stock market is not hard; like most things, it entails a learning curve. Stonkstache is here to walk you through the 
 learning curve and serve as your educational tool to understanding the principles and mindset of successful investors.</p>
@@ -75,8 +61,16 @@ learning curve and serve as your educational tool to understanding the principle
   }
 }
 
-/**this right here is what prints it to console**/
-fetch('/info').then(function (response) {
+/**prints ratios info to console**/
+fetch('/info?symbol=aapl').then(function (response) {
+          return response.json();
+      }).then(function (text) {
+          console.log(text);
+      });
+
+/**prints stock candles to console**/
+/**see main.py in stonks_backend for correct values to put for these params**/
+fetch('/stock?symbol=aapl&res=D&end=2019-5-12&period=q').then(function (response) {
           return response.json();
       }).then(function (text) {
           console.log(text);

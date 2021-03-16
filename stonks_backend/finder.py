@@ -75,9 +75,8 @@ def turnFloat(value):
     value = float(value)
     return value*multiplier*parity
 
-def driver():
+def driver(stockSymbol):
     #put in the stock symbol you want
-    stockSymbol = 'aapl'
 
     #lists containing all of the strings in div tags
     balanceList, cashFlowList = getDivList(stockSymbol)
@@ -184,4 +183,4 @@ def driver():
     return result
 
 #uncomment below to run this file by itself
-#driver()
+#driver('aapl')
