@@ -44,7 +44,7 @@ filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 .graph-parent {
     height: 80vh; /* If height not spec'd on nivo graph parent, will not render. */
 }
-
+/* ========== */
 /* Right Hand Side Menu */
 .right-menu {
     border: 0.5px solid #033B2E;
@@ -53,6 +53,39 @@ filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     padding-right: 0px !important;
     height: 80vh; /* To match the graph-parent's height in hope of containing overflowing content */
     overflow-y: scroll;
+}
+
+.balance-vol-text {
+    padding-top: 22px;
+    padding-bottom: 22px;
+    font-family: Coda;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+}
+
+
+/* ========== */
+/* That info bar giving Ticker Symbol, Price, change in points, change in percentage, above every graph */
+
+.stock-info-bar {
+    width: 50vw;
+}
+.stock-info-bar div {
+    display: inline;
+    font-family: Coda;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: 0.1em;
+
+    margin-left: 15px;
+    margin-right: 15px;
+
+    color: #94CFC1;
+
 }
 
 /* Those buttons above the graph denoting the time range of the data*/
@@ -72,6 +105,7 @@ filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     width: 50vw;
 }
 
+/* ========== */
 /* Colors */
 .red-text {
     color: #CF9494;
@@ -81,6 +115,16 @@ filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     color: #94CFC1;
 }
 
+.red-element {
+    background-color: #CF9494;
+}
+
+.green-element {
+    background-color: #94CFC1;
+}
+
+
+/* ========== */
 /* Altering some of the imported CSS from Bootstrap */
 
 .container-fluid, .container {
@@ -100,3 +144,31 @@ filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     border-top: 2px solid #94CFC1;
 }
 
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #94CFC1 !important;
+    background-color: transparent !important;
+    border-bottom: 2px solid #94CFC1 !important;
+}
+
+.nav-tabs {
+    border-bottom: transparent !important;
+}
+
+.nav-tabs .nav-link {
+    border: transparent !important;
+    font-family: Coda;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 17px;
+    line-height: 24px;
+    letter-spacing: 0.1em;
+}
+
+.card {
+    background-color: transparent !important;
+    border: 0.5px solid #033B2E !important  ;
+}
+
+a {
+    color: #054939 !important;
+}

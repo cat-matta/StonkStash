@@ -8,7 +8,10 @@ import DashGraphView from '../components/DashGraphView';
 import DashSidePanel from '../components/DashSidePanel';
 
 import MarketListPanel from '../components/MarketListPanel'; // as shown in "Macbook - 14"
+import BalanceSheetVolPanel from '../components/BalanceSheetVolPanel'; // as shown in "Macbook - 13"
 
+// Function to get stock data from backend. Should be placed into requestFunctions.js when integrated into front end main
+import { getStockInfo } from '../utils/stockDataRequests';
 
 
 
@@ -17,7 +20,6 @@ require('bootstrap');
 
 /* Unimplemented*/
 let WatchlistPanel = null; // The 2 wide, n/2 deep panel; from "Macbook - 12"
-let BalanceSheetVolPanel = null; // The 2 tabbed Balance Sheet / Volitility panel; from "Macbook - 13"
 
 const DEMO_PRICE_DATA = [
     {
@@ -75,7 +77,7 @@ const DEMO_PRICE_DATA = [
     }
   ];
 
-  const DEMO_OTHER_DATA = [
+  const DEMO_MACD_DATA = [
     {
       "id": "blue",
       "data": [
@@ -185,12 +187,12 @@ const DEMO_PRICE_DATA = [
   ];
 
   const DEMO_MARKET_DATA = [
-    {"symbol": "AAPL", "price": 800, "change": 1.3, "percent": 1.2},
-    {"symbol": "BBSL", "price": 305, "change": -51.3, "percent": -1.2},
-    {"symbol": "AAPL", "price": 800, "change": 1.3, "percent": 1.2},
-    {"symbol": "BBSL", "price": 305, "change": -51.3, "percent": -1.2},
-    {"symbol": "AAPL", "price": 800, "change": 1.3, "percent": 1.2},
-    {"symbol": "BBSL", "price": 305, "change": -51.3, "percent": -1.2},
+    {"symbol": "AAPL", "price": 137.05, "change": 5.02, "percent": 3.80},
+    {"symbol": "MSFT", "price": 225.00, "change": 0.66, "percent": 0.29},
+    {"symbol": "AMZN", "price": 3304.08, "change": 40.70, "percent": 1.25},
+    {"symbol": "TSLA", "price": 842.77, "change": -7.68, "percent": -0.90},
+    {"symbol": "FB", "price": 273.20, "change": 5.72, "percent": 2.14},
+    {"symbol": "GOOG", "price": 1891.00, "change": 13.93, "percent": 0.74},
     {"symbol": "AAPL", "price": 800, "change": 1.3, "percent": 1.2},
     {"symbol": "BBSL", "price": 305, "change": -51.3, "percent": -1.2},
     {"symbol": "AAPL", "price": 800, "change": 1.3, "percent": 1.2},
@@ -212,18 +214,24 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            current_stock_ticker: (DEMO_CURRENT_STOCK === null) ? undefined : DEMO_CURRENT_STOCK,
+            focused_stock_ticker: (DEMO_CURRENT_STOCK === null) ? undefined : DEMO_CURRENT_STOCK, // an "infocus" stock is the one being displayed in the graph
             time_range_state: "1D", // assuming whatever api we are using requires a time range for a query
 
             price_data: DEMO_PRICE_DATA, // can be updated or replaced by other sub component's actions
-            other_data: (DEMO_OTHER_DATA === null) ? undefined : DEMO_OTHER_DATA, // ditto. named as such until clarity of the red blue graph is provided
+            macd_data: (DEMO_MACD_DATA === null) ? undefined : DEMO_MACD_DATA, // ditto. named as such until clarity of the red blue graph is provided
 
             market_list_data: (DEMO_MARKET_DATA === null) ? undefined : DEMO_MARKET_DATA,
 
             bar_state: "market", // used to choose which side menu panel to display, based upon status of BottomBar and Sidebar itself(?)
         }
+
+            const stockinfo = getStockInfo('AAPL', '1', "2021-03-16", 'w');
+            console.log(stockinfo);
+        
     
       }
+
+    
 
     barStateCallback = (selection)  => {
         this.setState({bar_state: selection});
@@ -241,8 +249,8 @@ class Dashboard extends Component {
 
         // To quickly change SidePanel element based on current state of user input
         const barStateToComponent = {
-            "picks": () => {return WatchlistPanel},
-            "balance": () => {return BalanceSheetVolPanel},
+            "picks": () => {return <BalanceSheetVolPanel />}, /*{return WatchlistPanel}*/ 
+            "balance": () => {return <BalanceSheetVolPanel />},
             "market": () => {return(<MarketListPanel data={this.state.market_list_data} />)},
         }
 
@@ -253,7 +261,7 @@ class Dashboard extends Component {
             <DashTopNav />
             <Row>  
                 <Col xs={7} className="graph-parent">
-                    <DashGraphView priceData={this.state.price_data} otherData={this.state.other_data} />
+                    <DashGraphView priceData={this.state.price_data} macdData={this.state.macd_data} />
                 </Col>
                 <Col className="right-menu"> {sideMenuComponent} </Col>
             </Row>
