@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
+import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { Line } from '@nivo/line';
 import AutoSizer from "react-virtualized-auto-sizer"; // cause nivo's responsive components dont play nice within flexbox or css flex components
-
-/* This component with display all graph stuff within the Dashboard page.
- * It will utilise the C3.js library to render graphs.
- * Surely the component to be most frequently updated out of all the dashboard components. */
 
 // Required to remove grids, axis ticks, and the such from displaying.
 const top_theme = {
@@ -57,14 +54,43 @@ const bottom_theme = {
     }
 }
 
+/** The ever present bar above any given graph, denoting relevant but surface level info and a means of favoriting a given stock.
+ * @pre  The Dashboard has loaded succesfully and has the data necessary to cast in this element
+ * @post  The ticker symbol, price, and performance info of the stock being graphed will be displayed.
+ * @param  symbol  {String} The ticker symbol of the stock being viewed.
+ * @param  price  {Number} The current price of said stock. Non Negative
+ * @param  change  {Number} The change in points of the stock's price from now to (beginning of chosen time range)'s price. 
+ * @param  percent  {Number}  The above param, framed as a percentage.
+ * @return  A renderable component
+ */
+function StockInfoBar( {symbol, price, change, percent} ) {
+    // This will require the addition of a button for favoriting stocks. 
+    return(
+        <div className="stock-info-bar">
+            <div>{symbol}</div>
+            <div>{price}</div>
+            <div>{change}</div>
+            <div>{percent}</div>
+        </div>
+    ) 
+}
+
+const DEMO_STOCK_INFO = {
+    symbol: "HTML",
+    price: 3000,
+    change: 15,
+    percent: 1.5
+}
 
 /** This is an attempt at documenting the inputs of our DashGraphView component, which will display all
  * graphs on the Dashboard page. This can be one line graph at a time per a given, or two line graphs.
  * This will likely be determined by some outward forces/inputs.
  * 
+ * 
+ * 
  * The data itself, I'll try to make sense of here.
- * @property  price_data  Data of a stocks price over some time series
- * @property  
+ * @property  priceData  Data of a stocks price over some time series
+ * @property  macdData  Data for the blue and red graph 
  */
 class DashGraphView extends Component {
 
@@ -86,177 +112,27 @@ class DashGraphView extends Component {
         // }
         // manner. The "color" {string} property doesn't matter. Nivo uses color palettes spec'd in the graph component declaration.
         this.state = {
-            data: [
-                {
-                  "id": "stonk",
-                  "color": "#94CFC1",
-                  "data": [
-                    {
-                      "x": 0,
-                      "y": 256
-                    },
-                    {
-                      "x": 1,
-                      "y": 218
-                    },
-                    {
-                      "x": 2,
-                      "y": 9
-                    },
-                    {
-                      "x": 3,
-                      "y": 274
-                    },
-                    {
-                      "x": 4,
-                      "y": 54
-                    },
-                    {
-                      "x": 5,
-                      "y": 270
-                    },
-                    {
-                      "x": 6,
-                      "y": 263
-                    },
-                    {
-                      "x": 7,
-                      "y": 75
-                    },
-                    {
-                      "x": 8,
-                      "y": 46
-                    },
-                    {
-                      "x": 9,
-                      "y": 181
-                    },
-                    {
-                      "x": 10,
-                      "y": 200
-                    },
-                    {
-                      "x": 11,
-                      "y": 140
-                    }
-                  ]
-                }
-              ],
-              data2: [
-                {
-                  "id": "blue",
-                  "data": [
-                    {
-                      "x": 0,
-                      "y": 80
-                    },
-                    {
-                      "x": 1,
-                      "y": 76
-                    },
-                    {
-                      "x": 2,
-                      "y": 70
-                    },
-                    {
-                      "x": 3,
-                      "y": 95
-                    },
-                    {
-                      "x": 4,
-                      "y": 55
-                    },
-                    {
-                      "x": 5,
-                      "y": 96
-                    },
-                    {
-                      "x": 6,
-                      "y": 90
-                    },
-                    {
-                      "x": 7,
-                      "y": 35
-                    },
-                    {
-                      "x": 8,
-                      "y": 75
-                    },
-                    {
-                      "x": 9,
-                      "y": 65
-                    },
-                    {
-                      "x": 10,
-                      "y": 85
-                    },
-                    {
-                      "x": 11,
-                      "y": 30
-                    }
-                  ]
-                },
-                {
-                    "id": "red",
-                    "data": [
-                      {
-                        "x": 0,
-                        "y": 40
-                      },
-                      {
-                        "x": 1,
-                        "y": 48
-                      },
-                      {
-                        "x": 2,
-                        "y": 5
-                      },
-                      {
-                        "x": 3,
-                        "y": 45
-                      },
-                      {
-                        "x": 4,
-                        "y": 4
-                      },
-                      {
-                        "x": 5,
-                        "y": 10
-                      },
-                      {
-                        "x": 6,
-                        "y": 25
-                      },
-                      {
-                        "x": 7,
-                        "y": 34
-                      },
-                      {
-                        "x": 8,
-                        "y": 50
-                      },
-                      {
-                        "x": 9,
-                        "y": 35
-                      },
-                      {
-                        "x": 10,
-                        "y": 15
-                      },
-                      {
-                        "x": 11,
-                        "y": 20
-                      }
-                    ]
-                  }
-              ]
-        }
-        
+            stock_info: (this.props.stock_info) ? this.props.stock_info : DEMO_STOCK_INFO,
+            price_data: this.props.priceData, // single line info
+            macd_data: this.props.macdData, // double line info
+            time_choice: "1D"
+        };
 
-        // state stuff
     }
 
+        // Responds to changes in selected time series choice
+        onChange = val => {
+
+            this.setState({ time_choice: val });
+            this.props.cb(val);
+        }
+
     render() {
+
+
+        const {symbol, price, change, percent} = this.state.stock_info;
+
+
         /** The addition of the AutoSizer wrapper was neccesary due to the <ResponsiveLine> graph component
          * refusing to play nicely within a flexbox component (bootstrap containers, rows, cols, etc). Specifically
          * when the second graph was added. Wouldn't adjust to the height constraints of their parent. This works good so far.
@@ -268,11 +144,21 @@ class DashGraphView extends Component {
         return(
             <AutoSizer> 
                 {({ height, width }) => (
-                    <div >
+                    <div>
+                        <StockInfoBar symbol={symbol} price={price} change={change} percent={percent} /> 
+                        <ToggleButtonGroup name="graph-time-bar" className ="graph-time-group" type="radio" value={this.state.selection} onChange={this.onChange} defaultValue={this.state.selection} >
+                            <ToggleButton value={"1D"} variant="" id="1D" className="graph-time-button">1D</ToggleButton>
+                            <ToggleButton value={"1W"} variant="" id="1W" className="graph-time-button">1W</ToggleButton>
+                            <ToggleButton value={"1M"} variant="" id="1M" className="graph-time-button">1M</ToggleButton>
+                            <ToggleButton value={"6M"} variant="" id="6M" className="graph-time-button">6M</ToggleButton>
+                            <ToggleButton value={"1YR"} variant="" id="1YR" className="graph-time-button">1YR</ToggleButton>
+                            <ToggleButton value={"5YR"} variant="" id="5YR" className="graph-time-button">5YR</ToggleButton>
+                        </ToggleButtonGroup>
+
                         <Line
-                            data={this.state.data}
+                            data={this.state.price_data}
                             theme={top_theme}
-                            height={height*0.66}
+                            height={height*0.60}
                             width={width}
                             margin={{ top: 50, right: 110, bottom: 0, left: 60 }}
                             xScale={{ type: 'linear' }}
@@ -307,9 +193,9 @@ class DashGraphView extends Component {
                             useMesh={true}
                         />
                         <Line
-                            data={this.state.data2}
+                            data={this.state.macd_data}
                             theme={top_theme}
-                            height={height*0.33}
+                            height={height*0.25}
                             width={width}
                             margin={{ top: 0, right: 110, bottom: 30, left: 60 }}
                             xScale={{ type: 'linear', min: 'auto', max: 'auto', reverse: false }}
