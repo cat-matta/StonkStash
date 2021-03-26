@@ -6,15 +6,10 @@ import PicksIcon from '../images/dash_picks_button.png';
 import MarketIcon from '../images/dash_market_button.png';
 import SearchIcon from '../images/dash_search_button.png';
 
-/* Bottom Navigational Bar for the Dashboard
- * Has 3 options, packed in the center:
- * 1) Your Picks
- * 2) Market
- * 3) Search
- * This will likely influence behavior of all components on the dashboard besides the
- * Top Navigational bar. 
- * 
- * We are likely looking at radioboxes as far as what kind of button/tool will help us implement this design*/
+/** Bottom control bar for the dashboard
+ * @property  cb  {Function}  A callback function allowing the selected option to be
+ * returned to the dashboard.
+ */
 class DashBottomNav extends Component {
 
     constructor(props) {

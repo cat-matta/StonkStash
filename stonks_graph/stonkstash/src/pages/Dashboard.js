@@ -211,6 +211,8 @@ const DEMO_PRICE_DATA = [
  * insofar as api data being displayed and what not. Docs will get fleshed as we come closer to
  * what we want to achieve.  */
 class Dashboard extends Component {
+
+
     constructor(props) {
         super(props);
         this.state = {
@@ -232,12 +234,19 @@ class Dashboard extends Component {
       }
 
     
-
+    /** Allows Dashboard to switch between sidepanel elements based on the DashBottomNav's current status
+     * @param  selection  {String}  The id of the button pressed in the DashBottomNav's button group.
+     * @post  A different side panel element, corresponding to the user's choice, will be displayed.
+     */
     barStateCallback = (selection)  => {
         this.setState({bar_state: selection});
         console.log(selection)
     }
 
+    /** To allow the dashboard to acquire data within a different time period based on user input.
+     * @param  selection  {String}  The id of the time period selected within the DashGraphView's interface.
+     * @post  A call to the API will be made using the time period the user has selected.
+     */
     graphTimeCallback = (selection) => {
         // using <current stock symbol>, the chosen time range by the user, and whatever else needed,
         // make a call to get new price data for the currently displayed/chosen stock
@@ -257,19 +266,19 @@ class Dashboard extends Component {
         const sideMenuComponent = barStateToComponent[this.state.bar_state](); // always make sure to add your round brackets for what I did with that dict tfu
 
         return(
-        <Container fluid>
-            <DashTopNav />
-            <Row>  
-                <Col xs={7} className="graph-parent">
-                    <DashGraphView priceData={this.state.price_data} macdData={this.state.macd_data} />
-                </Col>
-                <Col className="right-menu"> {sideMenuComponent} </Col>
-            </Row>
-            <Row className="bottom-menu-bar">
-                <DashBottomNav cb={this.barStateCallback} />
-            </Row>
+            <Container fluid>
+                <DashTopNav />
+                <Row>  
+                    <Col xs={7} className="graph-parent">
+                        <DashGraphView priceData={this.state.price_data} macdData={this.state.macd_data} />
+                    </Col>
+                    <Col className="right-menu"> {sideMenuComponent} </Col>
+                </Row>
+                <Row className="bottom-menu-bar">
+                    <DashBottomNav cb={this.barStateCallback} />
+                </Row>
 
-        </Container>)
+            </Container>)
     }
 }
 

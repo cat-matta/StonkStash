@@ -16,6 +16,12 @@ import downArrowRed from '../images/down_arrow_red.png';
 import rightArrow from '../images/right_arrow.png';
 import downArrow from '../images/down_arrow.png';
 
+
+/** Sort of jacked from the React-Bootstrap docs.
+ * @param  children  whatever html elements or text is within the corresponding Accordion.Collapse element
+ * @param  eventKey  {Number}  The key value assigned to the element, setting it apart from others currently displayed (to the Accordion element).
+ * @param  callback  Guessing this is a callback function but I'm not entirely sure what it is.
+ */
 function ContextAwareToggle({ children, eventKey, callback}) {
     const currentEventKey = useContext(AccordionContext);
 
@@ -53,7 +59,7 @@ function ContextAwareToggle({ children, eventKey, callback}) {
 
 
 /** A component for the BalanceSheet/Volitility interface in the Dashboard.
- * Each option in a tab isn't a control or something, rather a collapsed display of data. 
+ * Each option in a tab isn't a control or value to be set, rather a collapsed display of data. 
  * The collapsed form gives it to the user with brevity, while the expanded form of a row option
  * (denoted by a downard arrow like 'v' but wider ofc) has a number line scale with a more verbose description to
  * explain what exactly the user is looking at and what judgements they should draw from that data.
