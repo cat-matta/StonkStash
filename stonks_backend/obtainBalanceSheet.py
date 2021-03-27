@@ -1,10 +1,15 @@
-import pandas as pd
-import urllib as urlpull
 import urllib.request
 import bs4 as bs
 import re
 
-#EVERYTHING HAPPENS IN THE driver() FUNCTION AT THE BOTTOM
+#################################################
+#################################################
+##                                             ##
+##  the driver function is the magic, the rest ##
+##  are methods which are called by it         ##
+##                                             ##
+#################################################
+#################################################
 
 def getDivListHelper(url):
     opener = urllib.request.urlopen(url).read() ##opens the html page
@@ -23,7 +28,12 @@ def getDivList(stockSymbol):
     cashList = getDivListHelper(cashLink)
     return balanceList, cashList
 
-def getIndices(divList, finalRow, verifyDate):
+
+def getIndices(divList, finalRow):
+
+    #regex saying that something is in the form of a date
+    verifyDate = re.compile("(\d{2})-([a-zA-Z]{3})-(\d{4})")
+
     for i in range(len(divList)):
         if divList[i] == "Item":
             if verifyDate.fullmatch(divList[i+1]):
@@ -75,21 +85,19 @@ def turnFloat(value):
     value = float(value)
     return value*multiplier*parity
 
+
 def driver(stockSymbol):
     #put in the stock symbol you want
 
     #lists containing all of the strings in div tags
     balanceList, cashFlowList = getDivList(stockSymbol)
 
-    #regex saying that something is in the form of a date
-    verifyDate = re.compile("(\d{2})-([a-zA-Z]{3})-(\d{4})")
-
     #indices of the lists which sandwich the info we need
-    startAssets, endAssets = getIndices(balanceList, "Total Assets Growth", verifyDate)
-    startLiabilities, endLiabilities = getIndices(balanceList, "Liabilities & Shareholders' Equity", verifyDate)
-    startOperatingActivities, endOperatingActivities = getIndices(cashFlowList, "Net Operating Cash Flow / Sales", verifyDate)
-    startInvestingActivities, endInvestingActivities = getIndices(cashFlowList, "Net Investing Cash Flow / Sales", verifyDate)
-    startFinancingActivities, endFinancingActivities = getIndices(cashFlowList, "Free Cash Flow Yield", verifyDate)
+    startAssets, endAssets = getIndices(balanceList, "Total Assets Growth")
+    startLiabilities, endLiabilities = getIndices(balanceList, "Liabilities & Shareholders' Equity")
+    startOperatingActivities, endOperatingActivities = getIndices(cashFlowList, "Net Operating Cash Flow / Sales")
+    startInvestingActivities, endInvestingActivities = getIndices(cashFlowList, "Net Investing Cash Flow / Sales")
+    startFinancingActivities, endFinancingActivities = getIndices(cashFlowList, "Free Cash Flow Yield")
 
     #dictionaries containing the info we need in a nice format
     assets = infoToDict(balanceList, startAssets, endAssets)
@@ -99,6 +107,7 @@ def driver(stockSymbol):
     financing = infoToDict(cashFlowList, startFinancingActivities, endFinancingActivities)
 
     #all of the info asked for
+    result = dict()
     currentAssets = turnFloat(assets["Total Current Assets"][4])
     currentLiabilities = turnFloat(liabilities["Total Current Liabilities"][4])
     workingCapital = currentAssets - currentLiabilities
@@ -183,4 +192,4 @@ def driver(stockSymbol):
     return result
 
 #uncomment below to run this file by itself
-#driver('aapl')
+#print(driver('aapl'))
