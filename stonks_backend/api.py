@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request
-from .finder import driver
+from .obtainBalanceSheet import driver
 from .main import *
 
 app = Flask(__name__)
