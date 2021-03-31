@@ -36,8 +36,9 @@ def getDivListHelper(url):
     #puts all non-null strings in a div tag in divList
     divList = []
     for stocklabel in stonksoup.find_all('div'):
-        if stocklabel.string:
-            divList.append(stocklabel.string)
+        stonk = stocklabel.string
+        if stonk:
+            divList.append(stonk)
 
     return divList
 
