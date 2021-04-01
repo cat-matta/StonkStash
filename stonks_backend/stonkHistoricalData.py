@@ -402,6 +402,7 @@ def mostRecentFiftyMACD(stockSymbol):
 
     return datesAndMACD
 
-
+'''
 print(getStockPrices('aapl', '2019-12-25', '1d'))
 print(mostRecentFiftyMACD('aapl'))
+'''
