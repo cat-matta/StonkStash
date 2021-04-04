@@ -70,7 +70,7 @@ fetch('/info?symbol=aapl').then(function (response) {
 
 /**prints stock candles to console**/
 /**see main.py in stonks_backend for correct values to put for these params**/
-fetch('/stock?symbol=aapl&start=2019-12-25&interval=1d').then(function (response) {
+fetch('/stock?symbol=aapl&start=2019-12-25&interval=D').then(function (response) {
           return response.json();
       }).then(function (text) {
           console.log(text);
