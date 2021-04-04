@@ -44,7 +44,7 @@ def soupToSpanList(stonksoup):
 #       startUnixTime is an int with the unix timestamp of the oldest stock price we want
 #       endUnixTime is an int with the unix timestamp of the most recent stock price we want
 #       interval is a string indicating how spaced out our stock prices should be
-#       it can only be one of the following strings: 1d, 1wk, 1mo
+#       it can only be one of the following strings: D, W, M
 #
 #return: soup generated with BeautifulSoup of the page we get from the above parameters
 #
@@ -57,8 +57,13 @@ def getSoup(stockSymbol, startUnixTime, endUnixTime, interval):
     #must be unix timestamps indicating the oldest and most recent stock prices we want,
     #respectively. interval indicates how spaced out the stock prices should be.
 
+    #the intervals in the yahoo finance url are 1d, 1wk, and 1mo
+    #representing daily, weekly, and monthly, respectively
+    interval = interval.upper()
+    intervals = {"D": "1d", "W": "1wk", "M": "1mo"}
+
     #generate url from the above parameters
-    url = 'https://finance.yahoo.com/quote/' + stockSymbol + '/history?period1=' + str(startUnixTime) + '&period2=' + str(endUnixTime) + '&interval=' + interval + '&filter=history&frequency=1d&includeAdjustedClose=true'
+    url = 'https://finance.yahoo.com/quote/' + stockSymbol + '/history?period1=' + str(startUnixTime) + '&period2=' + str(endUnixTime) + '&interval=' + intervals[interval] + '&filter=history&frequency=1d&includeAdjustedClose=true'
 
     #soupify the html from the above url
     opener = urllib.request.urlopen(url).read()
@@ -71,7 +76,7 @@ def getSoup(stockSymbol, startUnixTime, endUnixTime, interval):
 #       startUnixTime is an int with the unix timestamp of the oldest stock price we want
 #       endUnixTime is an int with the unix timestamp of the most recent stock price we want
 #       interval is a string indicating how spaced out our stock prices should be
-#       it can only be one of the following strings: 1d, 1wk, 1mo
+#       it can only be one of the following strings: D, W, M
 #
 #return: list of strings enclosed in span tags of the url we get from the above parameters
 #
@@ -241,8 +246,8 @@ def mostRecentHundredClosePrices(stockSymbol):
     startUnixTime = endUnixTime - 31536000
 
     #gets list of strings enclosed in span tags in the url determined by the below parameters
-    #we set the interval to 1d because we want daily stock price info
-    spanList = getSpanList(stockSymbol, startUnixTime, endUnixTime, '1d')
+    #we set the interval to D because we want daily stock price info
+    spanList = getSpanList(stockSymbol, startUnixTime, endUnixTime, 'D')
 
     #gets indices of spanList which sandwich the data we want
     start, end = getStartAndEndIndices(spanList)
@@ -327,7 +332,7 @@ def getEMA(lastHundredClosePrices, days):
 #       startDate is a string containing the oldest date of stock price you want
 #       it should be in YYYY-MM-DD format
 #       interval is a string indicating how spaced out the stock prices are
-#       the options are 1d, 1wk, 1mo standing for daily, weekly, and monthly respectively
+#       the options are D, W, M standing for daily, weekly, and monthly respectively
 #
 #return: dict with the open, low, close, adjusted close prices and volume traded
 #        for the stock in stockSymbol from the startDate to now
