@@ -89,8 +89,10 @@ const DEMO_STOCK_INFO = {
  * 
  * 
  * The data itself, I'll try to make sense of here.
- * @property  priceData  Data of a stocks price over some time series
- * @property  macdData  Data for the blue and red graph 
+ * @property  priceData  {Array<Object>} Data of a stocks price over some time series
+ * @property  macdData  {Array<Object>} Data for the blue and red graph.
+ * @property  stock_info  {Object}  An object carrying present information about the specified stock.
+ * @property  cb  {Function}  A callback function to change the time period of the graph.
  */
 class DashGraphView extends Component {
 
@@ -135,7 +137,7 @@ class DashGraphView extends Component {
 
         /** The addition of the AutoSizer wrapper was neccesary due to the <ResponsiveLine> graph component
          * refusing to play nicely within a flexbox component (bootstrap containers, rows, cols, etc). Specifically
-         * when the second graph was added. Wouldn't adjust to the height constraints of their parent. This works good so far.
+         * when the second graph was added. Wouldn't adjust to the height constraints of their parent. This workaround works good so far.
          * 
          * NOTES:
          * 1) Graphs are splitting the height of their parent component 2/3 : 1/3 (top and bottom, respectively). Seems as close to the doc I can get
