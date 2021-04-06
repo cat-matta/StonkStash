@@ -186,72 +186,62 @@ def setUpDict(assets, liabilities, operating, investing, financing):
 
     balanceSheet = dict()
 
-    #put all data we need in the dict balanceSheet *--
-    balanceSheet["Current Assets"] = turnFloat(assets["Total Current Assets"][4])
-    balanceSheet["Current Liabilities"] = turnFloat(liabilities["Total Current Liabilities"][4])
-    balanceSheet["Working Capital"] = balanceSheet["Current Assets"] - balanceSheet["Current Liabilities"]
-    balanceSheet["CWC Ratio"] = balanceSheet["Current Assets"]/balanceSheet["Current Liabilities"]
-    balanceSheet["Inventory"] = turnFloat(assets["Inventories"][4])
-    balanceSheet["Quick Ratio"] = (balanceSheet["Current Assets"] - balanceSheet["Inventory"])/balanceSheet["Current Liabilities"]
-    balanceSheet["Total Assets"] = turnFloat(assets["Total Assets"][4])
-    balanceSheet["Working Capital Over Assets"] = balanceSheet["Working Capital"]/balanceSheet["Total Assets"]
-    balanceSheet["Total Liabilities"] = turnFloat(liabilities["Total Liabilities"][4])
-    balanceSheet["Net Worth"] = balanceSheet["Total Assets"] - balanceSheet["Total Liabilities"]
-    balanceSheet["Debt Worth Ratio"] = balanceSheet["Total Liabilities"]/balanceSheet["Net Worth"]
-    balanceSheet["Cash"] = turnFloat(assets["Cash Only"][4])
-    balanceSheet["Cash and Short Term Investments"] = turnFloat(assets["Cash & Short Term Investments"][4])
-    balanceSheet["Net Operating Cash Flow"] = turnFloat(operating["Net Operating Cash Flow"][4])
-    balanceSheet["Net Income"] = turnFloat(operating["Net Income before Extraordinaries"][4])
-    balanceSheet["Flow to Income"] = balanceSheet["Net Operating Cash Flow"]/balanceSheet["Net Income"]
-    balanceSheet["3 Month Operating Costs"] = balanceSheet["Working Capital"]/4
-    balanceSheet["Cash Over 3 Month Operating Costs"] = turnFloat(assets["Cash Only"][4])/balanceSheet["3 Month Operating Costs"]
-    balanceSheet["C&ST Over TMOC"] = turnFloat(assets["Cash & Short Term Investments"][4])/balanceSheet["3 Month Operating Costs"]
+    #get info to compute ratios and compute ratios *--
+    currentAssets = turnFloat(assets["Total Current Assets"][4])
+    currentLiabilities = turnFloat(liabilities["Total Current Liabilities"][4])
+    workingCapital = currentAssets - currentLiabilities
+    currentWorkingCapitalRatio = currentAssets/currentLiabilities
+    inventory = turnFloat(assets["Inventories"][4])
+    quickRatio = (currentAssets - inventory)/currentLiabilities
+    totalAssets = turnFloat(assets["Total Assets"][4])
+    workingCapitalOverAssets = workingCapital/totalAssets
+    totalLiabilities = turnFloat(liabilities["Total Liabilities"][4])
+    netWorth = totalAssets - totalLiabilities
+    debtWorthRatio = totalLiabilities/netWorth
+    cash = turnFloat(assets["Cash Only"][4])
+    cashAndShortTermInvestments = turnFloat(assets["Cash & Short Term Investments"][4])
+    netOperatingCashFlow = turnFloat(operating["Net Operating Cash Flow"][4])
+    netIncome = turnFloat(operating["Net Income before Extraordinaries"][4])
+    flowToIncome = netOperatingCashFlow/netIncome
+    threeMonthOperatingCosts = workingCapital/4
+    cashOverThreeMonthOperatingCosts = cash/threeMonthOperatingCosts
+    cashAndShortTermInvestmentsOverThreeMonthOperatingCosts = turnFloat(assets["Cash & Short Term Investments"][4])/threeMonthOperatingCosts
+    # --*
+
+    #put all ratios in the dict balanceSheet *--
+    #ratios are not flagged by default
+    balanceSheet["CWC Ratio"] = {"value": currentWorkingCapitalRatio, "isFlagged": False}
+    balanceSheet["Quick Ratio"] = {"value": quickRatio, "isFlagged": False}
+    balanceSheet["Working Capital Over Assets"] = {"value": workingCapitalOverAssets, "isFlagged": False}
+    balanceSheet["Debt Worth Ratio"] = {"value": debtWorthRatio, "isFlagged": False}
+    balanceSheet["Flow to Income"] = {"value": flowToIncome, "isFlagged": False}
+    balanceSheet["Cash Over 3 Month Operating Costs"] = {"value": cashOverThreeMonthOperatingCosts, "isFlagged": False}
+    balanceSheet["C&ST Over TMOC"] = {"value": cashAndShortTermInvestmentsOverThreeMonthOperatingCosts, "isFlagged": False}
     # --*
 
 
-    #figure out which ratios are ideal, and which should be flagged *--
-    ideals = []
-    flags = []
-    if balanceSheet["CWC Ratio"] < 1.2:
-        flags.append("Current Working Capital Ratio")
-    else:
-        ideals.append("Current Working Capital Ratio")
+    #figure out which ratios should be flagged *--
+    if currentWorkingCapitalRatio < 1.2:
+        balanceSheet["CWC Ratio"]["isFlagged"] = True
 
-    if balanceSheet["Quick Ratio"] < 1:
-        flags.append("Quick Ratio")
-    else:
-        ideals.append("Quick Ratio")
+    if quickRatio < 1:
+        balanceSheet["Quick Ratio"]["isFlagged"] = True
 
-    if balanceSheet["Working Capital Over Assets"] < .12 or balanceSheet["Working Capital Over Assets"] > .3:
-        flags.append("Working Capital over Assets")
-    else:
-        ideals.append("Working Capital over Assets")
+    if workingCapitalOverAssets < .12 or workingCapitalOverAssets > .3:
+        balanceSheet["Working Capital Over Assets"]["isFlagged"] = True
 
-    if balanceSheet["Debt Worth Ratio"] < 1:
-        ideals.append("Debt Worth Ratio")
-    else:
-        flags.append("Debt Worth Ratio")
+    if debtWorthRatio >= 1:
+        balanceSheet["Debt Worth Ratio"]["isFlagged"] = True
 
-    if balanceSheet["Net Income"] < 0 or balanceSheet["Net Operating Cash Flow"] < 0 or balanceSheet["Flow to Income"] < 1:
-        flags.append("Net Operating Cash Flow to Net Income")
-    else:
-        ideals.append("Net Operating Cash Flow to Net Income")
+    if netIncome < 0 or netOperatingCashFlow < 0 or flowToIncome < 1:
+        balanceSheet["Flow To Income"]["isFlagged"] = True
 
-    if balanceSheet["Cash Over 3 Month Operating Costs"] < 1:
-        flags.append("Cash over 3-Month Operating Costs")
-    else:
-        ideals.append("Cash over 3-Month Operating Costs")
+    if cashOverThreeMonthOperatingCosts < 1:
+        balanceSheet["Cash Over 3 Month Operating Costs"]["isFlagged"] = True
 
-    if balanceSheet["C&ST Over TMOC"] < 4:
-        flags.append("Cash and Short Term Investments over 3-Month Operating Costs")
-    else:
-        ideals.append("Cash and Short Term Investments over 3-Month Operating Costs")
+    if cashAndShortTermInvestmentsOverThreeMonthOperatingCosts < 4:
+        balanceSheet["C&ST Over TMOC"]["isFlagged"] = True
     # --*
-
-    #puts the ratios which are ideal and which should be flagged
-    #in the dictionary balanceSheet
-    balanceSheet["flags"] = flags
-    balanceSheet["ideals"] = ideals
 
     return balanceSheet
 
@@ -298,4 +288,4 @@ def driver(stockSymbol):
 
 
 #uncomment below to run this file by itself
-print(driver('aapl'))
+#print(driver('aapl'))
