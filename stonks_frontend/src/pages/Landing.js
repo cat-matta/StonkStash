@@ -76,10 +76,4 @@ fetch('/stock?symbol=aapl&start=2019-12-25&interval=D').then(function (response)
           console.log(text);
       });
 
-fetch('/MACD?symbol=aapl').then(function (response) {
-          return response.json();
-      }).then(function (text) {
-          console.log(text);
-      });
-
 export default Landing;

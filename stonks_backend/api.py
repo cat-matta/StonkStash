@@ -16,9 +16,3 @@ def prices():
     args = request.args
     symbol, start, interval = args["symbol"], args["start"], args["interval"]
     return stonkHistoricalData.getStockPrices(symbol, start, interval)
-
-@app.route('/MACD')
-def getMACD():
-    args = request.args
-    symbol = args["symbol"]
-    return stonkHistoricalData.mostRecentFiftyMACD(symbol)
