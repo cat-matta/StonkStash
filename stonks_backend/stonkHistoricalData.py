@@ -7,10 +7,9 @@ import ciso8601
 ######################################################
 ######################################################
 ##                                                  ##
-##  The only functions you should call directly     ##
-##  if you're testing this file are getStockPrices  ##
-##  and mostRecentFiftyMACD. The rest are helpers.  ##
-##  Those two are at the bottom.                    ##
+##  The only function you should call directly      ##
+##  if you're testing this file is getStockPrices   ##
+##  The rest are helpers. That one is at the bottom ##
 ##                                                  ##
 ######################################################
 ######################################################
@@ -80,9 +79,7 @@ def getSoup(stockSymbol, startUnixTime, endUnixTime, interval):
 #
 #return: list of strings enclosed in span tags of the url we get from the above parameters
 #
-#Note: this function is a helper function called by getStockPrices and
-#      mostRecentHundredClosePrices, the latter of which is also a helper function called
-#      by mostRecentFiftyMACD.
+#Note: this function is a helper function called by getStockPrices
 def getSpanList(stockSymbol, startUnixTime, endUnixTime, interval):
 
     #soupify the page obtained from these four parameters
@@ -99,7 +96,7 @@ def getSpanList(stockSymbol, startUnixTime, endUnixTime, interval):
 #return: indices which sandwich the info we need in spanList
 #
 #Note: this is a helper function called by setUpStockPriceLists
-#      and mostRecentHundredStockPrices, both of which are helper functions
+#      which is a helper functions
 def getStartAndEndIndices(spanList):
 
     for i in range(len(spanList)):
@@ -182,143 +179,82 @@ def computeNewEndUnixTime(earliestDate):
     return endUnixTime
 
 
-#param: spanList is a list of strings enclosed in span tags
-#       closes is a list of strings that will be filled with a stock's close prices
-#       dates is a list of strings that will be filled with the dates corresponding 
-#       to the prices in closes
-#       start and end are the indices in spanList that sandwich the info which will
-#       be stored in dates and closes
-#
-#return: None. this function aims to add info to dates and closes
-#
-#Note: this is a helper function called by mostRecentHundredClosePrices,
-#      which is itself a helper function. 
-def setUpHundredStockPricesList(spanList, dates, closes, start, end):
-
-    #this matches a date which looks like Mar 23, 2012
-    #the start of each row is a date which matches this regex
-    verifyDate = re.compile("[a-zA-Z]{3} \d{2}, \d{4}")
-
-    
-    index = end-7
-    while index >= start:
-        #each row with stock information consists of seven columns
-        #in order, the columns are: Date, Open, High, Low, Close, Adjusted Close, Volume
-        #if the element at the current index is a date and if the element
-        #at index+7 is a date, then everything in between is info that I need
-        #the same goes if the element at index is a date and if index+7 is the end of 
-        #the info I need
-
-        if verifyDate.fullmatch(spanList[index]) and (verifyDate.fullmatch(spanList[index+7]) or index == end):
-            #add the data to the appropriate lists
-            dates.append(spanList[index])
-            closes.append(spanList[index+4])
-
-            #set index to the next date
-            index = index - 7
-        else:
-            #the above test will fail if there aren't seven spaces between two dates
-            #this happens occassionally (you'll see something like Dividend then a number)
-            #but in my experience you never miss out on stock info when you skip a row like that
-            index = index - 1
-
-
-#param: stockSymbol is a string with the symbol of the stock we're interested in
-#
-#return: dict with around 100 close prices, and the dates corresponding to those prices
-#        this function returns its stock prices in order from oldest to most recent, whereas
-#        getStockPrices returns its stock prices from most recent to oldest. The reason for
-#        this difference is that it makes the calculations in mostRecentFiftyMACD easier to write
-#
-#Note: this is a helper function called by mostRecentFiftyMACD
-#      the idea behind this function is that it gets the maximum amount of recent
-#      stock info off of one call to yahoo finance. The number of stock prices you
-#      get likely won't be exactly 100, because even though we get 100 rows of data
-#      from yahoo finance, some of those rows may not contain stock price info
-def mostRecentHundredClosePrices(stockSymbol):
-
-    #unix timestamp of today
-    endUnixTime = int( time.time() )
-
-    #31536000 is the number of seconds in a year 
-    #I just needed a startUnixTime that was far back enough to
-    #max out the number of rows in the table. The max rows is 100
-    startUnixTime = endUnixTime - 31536000
-
-    #gets list of strings enclosed in span tags in the url determined by the below parameters
-    #we set the interval to D because we want daily stock price info
-    spanList = getSpanList(stockSymbol, startUnixTime, endUnixTime, 'D')
-
-    #gets indices of spanList which sandwich the data we want
-    start, end = getStartAndEndIndices(spanList)
-
-    #lists which will contain info indicated by their names
-    dates, closes = [], []
-
-    #fills in dates and closes with info from spanList in between the indices start and end
-    #there is actually no reason why I should initialize dates and closes to empty lists
-    #and pass them as parameters, since I can just return them from the below function
-    #I did it in this way (passing them as parameters) to keep it as close to getStockPrices
-    #as possible (which is the other function which does something similar to this), but
-    #I'm not sure about this decision
-    setUpHundredStockPricesList(spanList, dates, closes, start, end)
-
-    #packages the lists in a single dictionary
-    closesAndDates = {"Date": dates, "Close": closes}
-    return closesAndDates
-
-
-#param: lastHundredClosePrices is a list of strings containing
-#       the most recent 100 or so close prices
+#param: closes is a list of strings containing all of the close prices 
+#       of the stock in the period we're interested in
 #       days is an int with the number of days in the period
 #
 #return: float with the simple moving average of the first n values, where n is days
 #        simple moving average is just the average
 #
 #Note: this is a helper function called by getEMA, which is also a helper function
-def getSimpleMovingAverage(lastHundredClosePrices, days):
+def getSimpleMovingAverage(closes, days):
 
     sum = 0
     for i in range(days):
-        sum += float(lastHundredClosePrices[i])
+        sum += float(closes[i])
     simpleMovingAverage = sum/days
 
     return simpleMovingAverage
 
-
-#param: lastHundredClosePrices is a list of strings containing
-#       the most recent 100 or so close prices
+#param: closes is a list of strings containing all of the close prices
+#       of the stock in the period we're interested in
 #       days is an int with the number of days in the period
+#       numberOfValuesToReturn is an int with the length of the EMA list we return
 #
-#return: most recent 50 values of the n period EMA, where n is days
+#return: list with EMA values, the amount of which is indicated by numberOfValuesToReturn
 #
-#Note: this is a helper function called by mostRecentFiftyMACD
-def getEMA(lastHundredClosePrices, days):
+#Note: this is a helper function called by getMACD, which is also a helper function
+def getEMA(closes, days, numberOfValuesToReturn):
 
-    numberOfClosePrices = len(lastHundredClosePrices)
+    #the strategy here is to calculate all of the EMA values we can,
+    #but we only return the most recent n number of values, where 
+    #n is numberOfValuesToReturn
 
-    #calculates simple moving average of first n close prices
-    simpleMovingAverage = getSimpleMovingAverage(lastHundredClosePrices, days)
+    #numberOfEMAvaluesToComputeWithoutStoring tells us how many close
+    #prices we go through to compute the EMA without storing them
+    numberOfClosePrices = len(closes)
+    numberOfEMAvaluesToComputeWithoutStoring = numberOfClosePrices - numberOfValuesToReturn
 
-    #this is the multiplier which shows up in the formula for EMA
+    #the initial EMA value can be taken to be the simple moving average
+    #(EMA is defined recursively, so we need a base case. That base case is the SMA)
+    exponentialMovingAverage = getSimpleMovingAverage(closes, days)
+
+    #this multiplier is a part of the formula
     multiplier = 2/(1+days)
 
-    #the first EMA is the simple moving average
-    exponentialMovingAverage = simpleMovingAverage
+    #this loop computes all of the EMA values we won't return
+    for i in range(days, numberOfEMAvaluesToComputeWithoutStoring):
+        exponentialMovingAverage = float(closes[i])*multiplier + exponentialMovingAverage*(1-multiplier)
 
-    #calculates the EMA for the first 50 or so days
-    for i in range(days, numberOfClosePrices-50):
-        exponentialMovingAverage = float(lastHundredClosePrices[i])*multiplier + exponentialMovingAverage*(1-multiplier)
-
-    #stores the last 50 EMA values in an array
-    #the further we get from the simple moving average the more accurate our EMA gets,
-    #so we only store the most recent 50 values (this is an arbitrary decision, but 50 is a nice number)
+    #this loop computes all of the EMA values we will return
     EMA = []
-    for i in range(numberOfClosePrices-50,numberOfClosePrices):
-        exponentialMovingAverage = float(lastHundredClosePrices[i])*multiplier + exponentialMovingAverage*(1-multiplier)
+    for i in range(numberOfEMAvaluesToComputeWithoutStoring, numberOfClosePrices):
+        exponentialMovingAverage = float(closes[i])*multiplier + exponentialMovingAverage*(1-multiplier)
         EMA.append(exponentialMovingAverage)
 
     return EMA
+
+
+#param: closes is a list of strings containing all of the close prices
+#       numberOfValuesToReturn is the length of the list of MACD values we're returning
+#
+#return: list of MACD values, the length of which is indicated by numberOfValuesToReturn
+#
+#Note: this is a helper function called by getStockPrices
+def getMACD(closes, numberOfValuesToReturn):
+
+    #twelveDayEMA and twentySixDayEMA are lists with the 12 and 26 day EMA's
+    #respectively, and the length of those lists are indicated by numberOfValuesToReturn
+    twelveDayEMA = getEMA(closes, 12, numberOfValuesToReturn)
+    twentySixDayEMA = getEMA(closes, 26, numberOfValuesToReturn)
+
+    #MACD is 12 day EMA - 26 day EMA
+    MACD = [twelveDayEMA[i] - twentySixDayEMA[i] for i in range(numberOfValuesToReturn)]
+
+    #I reverse MACD so that the most recent values are at index 0
+    #this is to match the other lists which will go in the dict
+    #which will be returned in getStockPrices
+    return MACD[::-1]
 
 
 #################################################
@@ -334,7 +270,7 @@ def getEMA(lastHundredClosePrices, days):
 #       interval is a string indicating how spaced out the stock prices are
 #       the options are D, W, M standing for daily, weekly, and monthly respectively
 #
-#return: dict with the open, low, close, adjusted close prices and volume traded
+#return: dict with the open, low, close, adjusted close prices, volume traded, and MACD values
 #        for the stock in stockSymbol from the startDate to now
 def getStockPrices(stockSymbol, startDate, interval):
 
@@ -375,39 +311,35 @@ def getStockPrices(stockSymbol, startDate, interval):
         #startDate, the loop will end
         endUnixTime = computeNewEndUnixTime(dates[-1])
 
+    #after the above loop, we have all of the stock price info we will return
+    #below this, we get another half year's worth of stock prices to make the 
+    #MACD values more accurate and then use that information to compute the MACD 
+    #values. We need to have the same amount of MACD values as stock prices,
+    #so we save the length of the stock prices lists so that we can make sure 
+    #that happens. Here I chose to get the length of dates, which was arbitrary.
+    #I could have used any of the seven lists (dates, opens, highs, etc.) since 
+    #they are the same length
+    numberOfStockPrices = len(dates)
+
+    #this gives us half a year of extra stock prices before the desired start
+    #so we can get more accurate MACD values
+    unixTimeHalfYearBeforeStart = startUnixTime - 15724800
+
+    #this loop functions in the same way as the one above
+    while (unixTimeHalfYearBeforeStart < endUnixTime - 259200):
+        spanList = getSpanList(stockSymbol, unixTimeHalfYearBeforeStart, endUnixTime, interval)
+        setUpStockPriceLists(spanList, dates, opens, highs, lows, closes, adjustedCloses, volumes)
+        endUnixTime = computeNewEndUnixTime(dates[-1])
+
+    #getMACD returns a list of MACD values, the length of which is numberOfStockPrices
+    #I reverse closes so that the oldest price are at index 0. This makes the string
+    #slicing in getMACD a bit easier and straightforward.
+    MACD = getMACD(closes[::-1], numberOfStockPrices)
 
     #packages the lists in a single dictionary
-    stockPriceInfo = {"Date": dates, "Open": opens, "High": highs, "Low": lows, "Close": closes, "Adjusted Close": adjustedCloses, "Volume": volumes}
+    stockPriceInfo = {"Date": dates[:numberOfStockPrices], "Open": opens[:numberOfStockPrices], "High": highs[:numberOfStockPrices], "Low": lows[:numberOfStockPrices], "Close": closes[:numberOfStockPrices], "Adjusted Close": adjustedCloses[:numberOfStockPrices], "Volume": volumes[:numberOfStockPrices], "MACD": MACD[:numberOfStockPrices]}
+
     return stockPriceInfo
 
 
-#param: stockSymbol is a string with the symbol of the stock we're interested in
-#
-#return: dict with the last fifty values of the MACD and the corresponding dates
-def mostRecentFiftyMACD(stockSymbol):
-
-    #gets dict with the most amount of recent close prices you can
-    #get off of one call to yahoo finance (there will be around 100 close prices)
-    closesAndDates = mostRecentHundredClosePrices(stockSymbol)
-
-    #list of the most recent close prices, there will be around 100 of them
-    lastHundredClosePrices = closesAndDates["Close"]
-
-    #twelveDayEMA and twentySixDayEMA are lists containing the most recent 50
-    #values of the 12 period and 26 period EMA, respectively
-    twelveDayEMA = getEMA(lastHundredClosePrices, 12)
-    twentySixDayEMA = getEMA(lastHundredClosePrices, 26)
-
-    #MACD is a list containing the most recent 50 MACD values
-    #it is the 12 Day EMA subtracted by the 26 Day EMA
-    MACD = [twelveDayEMA[i] - twentySixDayEMA[i] for i in range(50)]
-
-    #package the list of MACD values with a list of its corresponding dates
-    datesAndMACD = {"Dates": closesAndDates["Date"][-50:], "MACD": MACD}
-
-    return datesAndMACD
-
-'''
-print(getStockPrices('aapl', '2019-12-25', '1d'))
-print(mostRecentFiftyMACD('aapl'))
-'''
+#print(getStockPrices('gme', '2019-12-24', 'd'))
