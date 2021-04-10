@@ -1,6 +1,5 @@
 import urllib.request
-import bs4 as bs
-import re
+from bs4 import BeautifulSoup
 import time
 import ciso8601
 
@@ -8,7 +7,7 @@ import ciso8601
 ######################################################
 ##                                                  ##
 ##  The only function you should call directly      ##
-##  if you're testing this file is getStockPrices   ##
+##  if you're testing this file is getStockPrices.  ##
 ##  The rest are helpers. That one is at the bottom ##
 ##                                                  ##
 ######################################################
@@ -20,142 +19,6 @@ import ciso8601
 #HELPER FUNCTIONS START HERE#####################
 #################################################
 #################################################
-
-#param: stonksoup is the result of hitting a page with BeautifulSoup
-#
-#return: list of strings enclosed in span tags in the soup stonksoup
-#
-#Note: this is a helper function called by getSpanList which is also
-#      a helper function
-def soupToSpanList(stonksoup):
-
-    spanList = []
-    for stocklabel in stonksoup.find_all('span'):
-        stonk = stocklabel.string
-        #only adds strings to the list if they're non-null
-        if stonk:
-            spanList.append(stonk)
-
-    return spanList
-
-
-#param: stockSymbol is a string with the symbol of the stock we're interested in
-#       startUnixTime is an int with the unix timestamp of the oldest stock price we want
-#       endUnixTime is an int with the unix timestamp of the most recent stock price we want
-#       interval is a string indicating how spaced out our stock prices should be
-#       it can only be one of the following strings: D, W, M
-#
-#return: soup generated with BeautifulSoup of the page we get from the above parameters
-#
-#Note: this function is a helper function called by getSpanList which in turn is a
-#      helper function.
-def getSoup(stockSymbol, startUnixTime, endUnixTime, interval):
-
-    #the four things that need to be filled in the yahoo finance url are the symbol
-    #of the stock, and the parameters period1, period2, and interval. period1 and period2
-    #must be unix timestamps indicating the oldest and most recent stock prices we want,
-    #respectively. interval indicates how spaced out the stock prices should be.
-
-    #the intervals in the yahoo finance url are 1d, 1wk, and 1mo
-    #representing daily, weekly, and monthly, respectively
-    interval = interval.upper()
-    intervals = {"D": "1d", "W": "1wk", "M": "1mo"}
-
-    #generate url from the above parameters
-    url = 'https://finance.yahoo.com/quote/' + stockSymbol + '/history?period1=' + str(startUnixTime) + '&period2=' + str(endUnixTime) + '&interval=' + intervals[interval] + '&filter=history&frequency=1d&includeAdjustedClose=true'
-
-    #soupify the html from the above url
-    opener = urllib.request.urlopen(url).read()
-    stonksoup = bs.BeautifulSoup(opener, 'lxml')
-
-    return stonksoup
-
-
-#param: stockSymbol is a string with the symbol of the stock we're interested in
-#       startUnixTime is an int with the unix timestamp of the oldest stock price we want
-#       endUnixTime is an int with the unix timestamp of the most recent stock price we want
-#       interval is a string indicating how spaced out our stock prices should be
-#       it can only be one of the following strings: D, W, M
-#
-#return: list of strings enclosed in span tags of the url we get from the above parameters
-#
-#Note: this function is a helper function called by getStockPrices
-def getSpanList(stockSymbol, startUnixTime, endUnixTime, interval):
-
-    #soupify the page obtained from these four parameters
-    stonksoup = getSoup(stockSymbol, startUnixTime, endUnixTime, interval)
-
-    #gets list of strings enclosed in span tags from the soup generated above
-    spanList = soupToSpanList(stonksoup)
-
-    return spanList
-
-
-#param: spanList is a list of strings enclosed in span tags
-#
-#return: indices which sandwich the info we need in spanList
-#
-#Note: this is a helper function called by setUpStockPriceLists
-#      which is a helper functions
-def getStartAndEndIndices(spanList):
-
-    for i in range(len(spanList)):
-        #the data starts the line after "Volume"
-        if spanList[i] == "Volume":
-            start = i+1
-
-        #the data ends at the line "*Close price adjusted for splits."
-        #technically it ends the line before then, but python's range
-        #doesn't include the endpoint, so I set the end to be the index
-        #after the end of the information
-        if spanList[i] == "*Close price adjusted for splits.":
-            end = i
-
-    return start, end
-
-
-#param: spanList is a list of strings enclosed in span tags. all info we need is in a span tag
-#       the remaining seven arguments are lists containing info indicated by their variable names
-#       this function adds to whatever info they currently have
-#
-#return: None. this function aims to add info to the seven lists passed as arguments
-#
-#Note: this is a helper function called by getStockPrices
-def setUpStockPriceLists(spanList, dates, opens, highs, lows, closes, adjustedCloses, volumes):
-
-    #this matches a date which looks like Mar 23, 2012
-    #the start of each row is a date which matches this regex
-    verifyDate = re.compile("[a-zA-Z]{3} \d{2}, \d{4}")
-
-    #gets indices of spanList which sandwich the data we want
-    start, end = getStartAndEndIndices(spanList)
-
-    index = start
-    while index < end:
-        #each row with stock information consists of seven columns
-        #in order, the columns are: Date, Open, High, Low, Close, Adjusted Close, Volume
-        #if the element at the current index is a date and if the element
-        #at index+7 is a date, then everything in between is info that I need
-        #the same goes if the element at index is a date and if index+7 is the end of 
-        #the info I need
-
-        if verifyDate.fullmatch(spanList[index]) and (verifyDate.fullmatch(spanList[index+7]) or index+7 == end):
-            #add the data to the appropriate lists
-            dates.append(spanList[index])
-            opens.append(spanList[index+1])
-            highs.append(spanList[index+2])
-            lows.append(spanList[index+3])
-            closes.append(spanList[index+4])
-            adjustedCloses.append(spanList[index+5])
-            volumes.append(spanList[index+6])
-
-            #set index to the next date
-            index = index + 7
-        else:
-            #the above test will fail if there aren't seven spaces between two dates
-            #this happens occassionally (you'll see something like Dividend then a number)
-            #but in my experience you never miss out on stock info when you skip a row like that
-            index = index + 1
 
 
 #param: earliestDate is a string with a date which looks like Mar 23, 2012
@@ -179,82 +42,126 @@ def computeNewEndUnixTime(earliestDate):
     return endUnixTime
 
 
-#param: closes is a list of strings containing all of the close prices 
-#       of the stock in the period we're interested in
+#param: value is a string containing a number
+#
+#return: float corresponding to the number in value. We need this because if the
+#        number is greater than a thousand, there will be commas in the string
+def turnFloat(value):
+
+    #if the number is already a float we don't want to do anything
+    if float != type(value):
+        #deletes commas from the string, turns it into a float
+        value = float( "".join( value.split(',') ) )
+
+    return value
+
+
+#param: values is a list of strings containing numbers or floats
+#       we will be calculating the simple moving average of the first
+#       n elements of values, where n is days
 #       days is an int with the number of days in the period
 #
 #return: float with the simple moving average of the first n values, where n is days
 #        simple moving average is just the average
 #
 #Note: this is a helper function called by getEMA, which is also a helper function
-def getSimpleMovingAverage(closes, days):
+def getSimpleMovingAverage(values, days):
 
     sum = 0
     for i in range(days):
-        sum += float(closes[i])
+        sum += turnFloat(values[i])
     simpleMovingAverage = sum/days
 
     return simpleMovingAverage
 
-#param: closes is a list of strings containing all of the close prices
-#       of the stock in the period we're interested in
+
+#param: values is a list of strings containing numbers or floats
+#       we will be calculating as many EMA values of this list as we can
 #       days is an int with the number of days in the period
-#       numberOfValuesToReturn is an int with the length of the EMA list we return
 #
-#return: list with EMA values, the amount of which is indicated by numberOfValuesToReturn
+#return: list with EMA values
 #
-#Note: this is a helper function called by getMACD, which is also a helper function
-def getEMA(closes, days, numberOfValuesToReturn):
+#Note: this is a helper function called by getMACD and getStockPrices,
+#      the former of which is also a helper function
+def getEMA(values, days):
 
-    #the strategy here is to calculate all of the EMA values we can,
-    #but we only return the most recent n number of values, where 
-    #n is numberOfValuesToReturn
-
-    #numberOfEMAvaluesToComputeWithoutStoring tells us how many close
-    #prices we go through to compute the EMA without storing them
-    numberOfClosePrices = len(closes)
-    numberOfEMAvaluesToComputeWithoutStoring = numberOfClosePrices - numberOfValuesToReturn
-
-    #the initial EMA value can be taken to be the simple moving average
+    #the initial EMA value can be taken to be the simple moving average (SMA)
     #(EMA is defined recursively, so we need a base case. That base case is the SMA)
-    exponentialMovingAverage = getSimpleMovingAverage(closes, days)
+    exponentialMovingAverage = getSimpleMovingAverage(values, days)
 
     #this multiplier is a part of the formula
     multiplier = 2/(1+days)
 
-    #this loop computes all of the EMA values we won't return
-    for i in range(days, numberOfEMAvaluesToComputeWithoutStoring):
-        exponentialMovingAverage = float(closes[i])*multiplier + exponentialMovingAverage*(1-multiplier)
-
     #this loop computes all of the EMA values we will return
+    numberOfValues = len(values)
     EMA = []
-    for i in range(numberOfEMAvaluesToComputeWithoutStoring, numberOfClosePrices):
-        exponentialMovingAverage = float(closes[i])*multiplier + exponentialMovingAverage*(1-multiplier)
+    for i in range(days, numberOfValues):
+        exponentialMovingAverage = turnFloat(values[i])*multiplier + exponentialMovingAverage*(1-multiplier)
         EMA.append(exponentialMovingAverage)
 
     return EMA
 
 
 #param: closes is a list of strings containing all of the close prices
-#       numberOfValuesToReturn is the length of the list of MACD values we're returning
 #
-#return: list of MACD values, the length of which is indicated by numberOfValuesToReturn
+#return: list of MACD values
 #
 #Note: this is a helper function called by getStockPrices
-def getMACD(closes, numberOfValuesToReturn):
+def getMACD(closes):
 
-    #twelveDayEMA and twentySixDayEMA are lists with the 12 and 26 day EMA's
-    #respectively, and the length of those lists are indicated by numberOfValuesToReturn
-    twelveDayEMA = getEMA(closes, 12, numberOfValuesToReturn)
-    twentySixDayEMA = getEMA(closes, 26, numberOfValuesToReturn)
+    #twelveDayEMA and twentySixDayEMA are lists with the 12 and 26 day EMA's respectively
+    twelveDayEMA = getEMA(closes, 12)
+    twentySixDayEMA = getEMA(closes, 26)
+
+    numberOfMACDvaluesWeCanCompute = len(twentySixDayEMA)
 
     #MACD is 12 day EMA - 26 day EMA
-    MACD = [twelveDayEMA[i] - twentySixDayEMA[i] for i in range(numberOfValuesToReturn)]
+    MACD = [twelveDayEMA[-i-1] - twentySixDayEMA[-i-1] for i in range(numberOfMACDvaluesWeCanCompute)]
 
-    #I reverse MACD so that the most recent values are at index 0
-    #this is to match the other lists which will go in the dict
-    #which will be returned in getStockPrices
-    return MACD[::-1]
+    return MACD
+
+
+#param: stockSymbol is a string containing the symbol of the stock we're interested in
+#       startUnixTime is the unix timestamp of the date of the oldest stock price we're looking for
+#       endUnixTime is the unix timestamp of the date of the most recent stock price we're looking for
+#       interval is a string, one of D, W, M, which indicates how spaced apart the stock prices should be
+#
+#return: soup of the html of the page containing the stock prices indicated by the parameters
+def getSoup(stockSymbol, startUnixTime, endUnixTime, interval):
+
+    interval = interval.upper()
+    intervals = {"D": "1d", "W": "1wk", "M": "1mo"}
+
+    #generate url from the above parameters
+    url = f'https://finance.yahoo.com/quote/{stockSymbol}/history?period1={str(startUnixTime)}&period2={str(endUnixTime)}&interval={intervals[interval]}&filter=history&frequency=1d&includeAdjustedClose=true'
+
+    #soupify the html from the above url
+    opener = urllib.request.urlopen(url).read()
+    stonksoup = BeautifulSoup(opener, 'lxml')
+
+    return stonksoup
+
+
+#param: soup is a BeautifulSoup object of the page with the stock prices we're interested in
+#       the other parameters are lists of strings containing what their name suggests
+#
+#return: None, this function extracts the values from soup and puts them in the lists passed as parameters
+def soupToStockPrices(soup, dates, opens, highs, lows, closes, adjustedCloses, volumes):
+
+    #each row in the table is enclosed in a tr tag
+    rows = soup.find_all('tr')
+
+    #if a row has seven td tags, then it contains the information we want
+    for row in rows:
+        columns = row.find_all('td')
+        if len(columns) == 7:
+            dates.append(columns[0].span.text)
+            opens.append(columns[1].span.text)
+            highs.append(columns[2].span.text)
+            lows.append(columns[3].span.text)
+            closes.append(columns[4].span.text)
+            adjustedCloses.append(columns[5].span.text)
+            volumes.append(columns[6].span.text)
 
 
 #################################################
@@ -291,55 +198,69 @@ def getStockPrices(stockSymbol, startDate, interval):
     #they will be filled in the while loop in the call to setUpStockPriceLists
     dates, opens, highs, lows, closes, adjustedCloses, volumes = [], [], [], [], [], [], []
 
-
-    #259200 is the number of seconds in three days
+    #86400 is the number of seconds in one day
     #the call to get historical data only returns the most recent hundred stock prices, so I keep
-    #accessing yahoo until the oldest stock price I get is within three days of the startDate
-    while (startUnixTime < endUnixTime - 259200):
+    #accessing yahoo until the oldest stock price I get is within three days of the startDate if
+    #the interval is daily, seven days if the interval is weekly, and thirty days if the interval
+    #is monthly
 
-        #all of the info I need is enclosed in span tags
-        #this returns a list of strings in span tags for the url generated by
-        #the four parameters passed into this function
-        spanList = getSpanList(stockSymbol, startUnixTime, endUnixTime, interval)
+    multiplier1 = {"D": 3, "W": 7, "M": 30}
+    interval = interval.upper()
+    spanOfTimeWhereItWouldNotMakeSenseToGetMoreStockInfo = 86400*multiplier1[interval]
 
-        #fills in the lists dates, opens, highs, lows, closes, adjustedCloses, volumes
-        #with the information in spanList
-        setUpStockPriceLists(spanList, dates, opens, highs, lows, closes, adjustedCloses, volumes)
+    while (spanOfTimeWhereItWouldNotMakeSenseToGetMoreStockInfo < endUnixTime - startUnixTime):
+
+        #stonksoup is a BeautifulSoup object of the page with the stock prices we want
+        stonksoup = getSoup(stockSymbol, startUnixTime, endUnixTime, interval)
+
+        #this function extracts the values from stonksoup we're interested in and puts them in the lists passed as parameters
+        soupToStockPrices(stonksoup, dates, opens, highs, lows, closes, adjustedCloses, volumes)
 
         #gets the date of the oldest stock price in the most recent call to yahoo
         #and converts it to a unix timestamp. If this is within three days of the
         #startDate, the loop will end
         endUnixTime = computeNewEndUnixTime(dates[-1])
 
-    #after the above loop, we have all of the stock price info we will return
-    #below this, we get another half year's worth of stock prices to make the 
-    #MACD values more accurate and then use that information to compute the MACD 
-    #values. We need to have the same amount of MACD values as stock prices,
-    #so we save the length of the stock prices lists so that we can make sure 
-    #that happens. Here I chose to get the length of dates, which was arbitrary.
-    #I could have used any of the seven lists (dates, opens, highs, etc.) since 
-    #they are the same length
+    #after the above loop, we have all of the stock price info we will return.
+    #below this, we get extra stock prices to make the MACD values more accurate
+    #and then use that information to compute the MACD values. We need to have 
+    #the same amount of MACD values as stock prices, so we save the length of
+    #the stock prices lists so that we can make sure that happens. Here I chose
+    #to get the length of dates, which was arbitrary. I could have used any of
+    #the seven lists (dates, opens, highs, etc.) since they are the same length
     numberOfStockPrices = len(dates)
 
-    #this gives us half a year of extra stock prices before the desired start
-    #so we can get more accurate MACD values
-    unixTimeHalfYearBeforeStart = startUnixTime - 15724800
+    #this gives us extra stock prices before the 
+    #desired start so we can get more accurate MACD values
+
+    extraUnixTime = {'D': 15724800, 'W': 78624000, 'M': 267840000}
+    extraTimeBeforeStart = startUnixTime - extraUnixTime[interval]
 
     #this loop functions in the same way as the one above
-    while (unixTimeHalfYearBeforeStart < endUnixTime - 259200):
-        spanList = getSpanList(stockSymbol, unixTimeHalfYearBeforeStart, endUnixTime, interval)
-        setUpStockPriceLists(spanList, dates, opens, highs, lows, closes, adjustedCloses, volumes)
+    while (spanOfTimeWhereItWouldNotMakeSenseToGetMoreStockInfo < endUnixTime - extraTimeBeforeStart):
+        stonksoup = getSoup(stockSymbol, extraTimeBeforeStart, endUnixTime, interval)
+        soupToStockPrices(stonksoup, dates, opens, highs, lows, closes, adjustedCloses, volumes)
         endUnixTime = computeNewEndUnixTime(dates[-1])
 
-    #getMACD returns a list of MACD values, the length of which is numberOfStockPrices
-    #I reverse closes so that the oldest price are at index 0. This makes the string
-    #slicing in getMACD a bit easier and straightforward.
-    MACD = getMACD(closes[::-1], numberOfStockPrices)
+    #here we get the MACD values, signal line, and MACD histogram
+
+    #we reverse the closes list to have the oldest stock price be at index 0
+    #this makes the array slicing a bit easier and straightforward in getMACD
+    MACD = getMACD(closes[::-1])
+
+    #the signal line is the 9 day EMA of MACD
+    #we reverse the MACD list to have the oldest stock price be at index 0
+    #this makes the array slicing a bit easier and straightforward in getEMA
+    #we also reverse the list it returns so that the most recent value is index 0
+    signalLine = getEMA(MACD[::-1], 9)[::-1]
+
+    #the MACD histogram is the MACD minus the signal line
+    macdHistogram = [MACD[i] - signalLine[i] for i in range(numberOfStockPrices)]
 
     #packages the lists in a single dictionary
-    stockPriceInfo = {"Date": dates[:numberOfStockPrices], "Open": opens[:numberOfStockPrices], "High": highs[:numberOfStockPrices], "Low": lows[:numberOfStockPrices], "Close": closes[:numberOfStockPrices], "Adjusted Close": adjustedCloses[:numberOfStockPrices], "Volume": volumes[:numberOfStockPrices], "MACD": MACD[:numberOfStockPrices]}
+    stockPriceInfo = {"Date": dates[:numberOfStockPrices], "Open": opens[:numberOfStockPrices], "High": highs[:numberOfStockPrices], "Low": lows[:numberOfStockPrices], "Close": closes[:numberOfStockPrices], "Adjusted Close": adjustedCloses[:numberOfStockPrices], "Volume": volumes[:numberOfStockPrices], "MACD": MACD[:numberOfStockPrices], "MACD Signal Line": signalLine[:numberOfStockPrices], "MACD Histogram": macdHistogram}
 
     return stockPriceInfo
 
 
-#print(getStockPrices('gme', '2019-12-24', 'd'))
+#print(getStockPrices('goog', '2018-12-24', 'm'))
