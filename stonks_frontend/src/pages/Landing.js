@@ -61,19 +61,14 @@ learning curve and serve as your educational tool to understanding the principle
   }
 }
 
-/**prints ratios info to console**/
-fetch('/info?symbol=aapl').then(function (response) {
+/**prints stock candles to console**/
+/**see main.py in stonks_backend for correct values to put for these params**/
+fetch('/stock?symbol=aapl&start=1615490279.1&end=1618168679&interval=W').then(function (response) {
           return response.json();
       }).then(function (text) {
           console.log(text);
       });
 
-/**prints stock candles to console**/
-/**see main.py in stonks_backend for correct values to put for these params**/
-fetch('/stock?symbol=aapl&start=2019-12-25&interval=D').then(function (response) {
-          return response.json();
-      }).then(function (text) {
-          console.log(text);
-      });
+console.log("ye")
 
 export default Landing;
