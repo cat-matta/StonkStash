@@ -133,7 +133,8 @@ def getSoup(stockSymbol, startUnixTime, endUnixTime, interval):
     intervals = {"D": "1d", "W": "1wk", "M": "1mo"}
 
     #generate url from the above parameters
-    url = f'https://finance.yahoo.com/quote/{stockSymbol}/history?period1={str(startUnixTime)}&period2={str(endUnixTime)}&interval={intervals[interval]}&filter=history&frequency=1d&includeAdjustedClose=true'
+    url = f'https://finance.yahoo.com/quote/{stockSymbol}/history?period1={str(int(startUnixTime))}&period2={str(int(endUnixTime))}&interval={intervals[interval]}&filter=history&frequency=1d&includeAdjustedClose=true'
+
 
     #soupify the html from the above url
     opener = urllib.request.urlopen(url).read()
@@ -145,11 +146,16 @@ def getSoup(stockSymbol, startUnixTime, endUnixTime, interval):
 #param: soup is a BeautifulSoup object of the page with the stock prices we're interested in
 #       the other parameters are lists of strings containing what their name suggests
 #
-#return: None, this function extracts the values from soup and puts them in the lists passed as parameters
+#return: integer containing the number of rows of information we get from the soup
+#        we will use this as a bool to check to see if this operation was successful
+#        since any number greater than 0 gets treated as True
 def soupToStockPrices(soup, dates, opens, highs, lows, closes, adjustedCloses, volumes):
 
     #each row in the table is enclosed in a tr tag
     rows = soup.find_all('tr')
+
+    #keep track of number of rows of info we get from this soup
+    goodRows = False
 
     #if a row has seven td tags, then it contains the information we want
     for row in rows:
@@ -163,6 +169,10 @@ def soupToStockPrices(soup, dates, opens, highs, lows, closes, adjustedCloses, v
             adjustedCloses.append(columns[5].span.text)
             volumes.append(columns[6].span.text)
 
+            goodRows += 1
+
+    return goodRows
+
 
 #################################################
 #################################################
@@ -172,27 +182,19 @@ def soupToStockPrices(soup, dates, opens, highs, lows, closes, adjustedCloses, v
 
 
 #param: stockSymbol is a string with the symbol of the stock we're interested in      
-#       startDate is a string containing the oldest date of stock price you want
-#       it should be in YYYY-MM-DD format
+#       startUnixTime and endUnixTime are ints or floats containing unix timestamps of the
+#       oldest and most recent stock prices we're interested in, respectively
 #       interval is a string indicating how spaced out the stock prices are
 #       the options are D, W, M standing for daily, weekly, and monthly respectively
 #
 #return: dict with the open, low, close, adjusted close prices, volume traded, and MACD values
 #        for the stock in stockSymbol from the startDate to now
-def getStockPrices(stockSymbol, startDate, interval):
+def getStockPrices(stockSymbol, startUnixTime, endUnixTime, interval):
 
     #the url for yahoo finance requires you to fill in the parameters period1
     #and period2, which refer to the start and end of the period for which you're 
     #interested in getting stock information. These parameters only accept unix
-    #timestamps, so we must convert to startDate to a unix timestamp for period1 
-    #and get today's unix timestamp for period2
-
-    #takes in the startDate in YYYY-MM-DD format and spits out the corresponding unix timestamp    
-    startDate = ciso8601.parse_datetime(startDate)
-    startUnixTime = int( time.mktime( startDate.timetuple() ) )
-
-    #gets unix timestamp of now
-    endUnixTime = int( time.time() )
+    #timestamps
 
     #list which will contain the info indicated by their names
     #they will be filled in the while loop in the call to setUpStockPriceLists
@@ -214,7 +216,9 @@ def getStockPrices(stockSymbol, startDate, interval):
         stonksoup = getSoup(stockSymbol, startUnixTime, endUnixTime, interval)
 
         #this function extracts the values from stonksoup we're interested in and puts them in the lists passed as parameters
-        soupToStockPrices(stonksoup, dates, opens, highs, lows, closes, adjustedCloses, volumes)
+        #if soupToStockPrices didn't add any new information, we break from the loop
+        if not soupToStockPrices(stonksoup, dates, opens, highs, lows, closes, adjustedCloses, volumes):
+            break
 
         #gets the date of the oldest stock price in the most recent call to yahoo
         #and converts it to a unix timestamp. If this is within three days of the
@@ -239,7 +243,8 @@ def getStockPrices(stockSymbol, startDate, interval):
     #this loop functions in the same way as the one above
     while (spanOfTimeWhereItWouldNotMakeSenseToGetMoreStockInfo < endUnixTime - extraTimeBeforeStart):
         stonksoup = getSoup(stockSymbol, extraTimeBeforeStart, endUnixTime, interval)
-        soupToStockPrices(stonksoup, dates, opens, highs, lows, closes, adjustedCloses, volumes)
+        if not soupToStockPrices(stonksoup, dates, opens, highs, lows, closes, adjustedCloses, volumes):
+            break
         endUnixTime = computeNewEndUnixTime(dates[-1])
 
     #here we get the MACD values, signal line, and MACD histogram
@@ -262,5 +267,3 @@ def getStockPrices(stockSymbol, startDate, interval):
 
     return stockPriceInfo
 
-
-#print(getStockPrices('goog', '2018-12-24', 'm'))
