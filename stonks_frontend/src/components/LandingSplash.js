@@ -11,16 +11,16 @@ class LandingSplash extends Component {
         <Col>
           <div id="welcome_text" className="light">Welcome to StonkStash</div>
           <div class="Retanglearoundphone"></div>
-      <h1 class = "name1">
-        
-        Welcome To Stonkstash
-      </h1>
-        <div class="firstphone"></div>
-        <h1 class= "detail1">
-        The only tool you need to become a successful stock market investor.
-        
+
+          <div class="firstphone"></div>
+          <h1 class= "detail1">
+            The only tool you need to become a successful stock market investor.
           </h1>
-          <div class="missionstatement"><h1 class="missiondetail">Our mission is to help YOU use the free investing resources of today to your benefit rather than your detrimate.</h1></div>
+          <div class="missionstatement">
+            <h1 class="missiondetail">
+              Our mission is to help YOU use the free investing resources of today to your benefit rather than your detrimate.
+            </h1>
+          </div>
           
           <button class="informbutton">
             <font face="Coda"><font color="White"><font weight="1"><font align="Center">
