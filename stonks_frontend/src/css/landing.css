@@ -1,6 +1,28 @@
 /** CSS for the Landing Page */
 /* Iteration One, by Emily */
 
+
+/** at last, the chosen font **/
+@import url('https://fonts.googleapis.com/css2?family=Coda&display=swap');
+
+/** From Embee's iteration, renamed to be consistent with the rest **/
+
+/*  Originally '.firstphone' */
+#pitch_phone {
+  position: absolute;
+  width: 225px;
+  height: 455px;
+  left: 295px;
+  top: 220px;
+  animation: fade-in duration timing-function delay iteration-count direction fill-mode;
+
+  background: url(../images/pitch_phone.png);
+  border-radius: 30px;
+  -webkit-animation: fade-in-top 5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: fade-in-top 5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+
 /** borrowed from bootstrap **/
 
 
@@ -173,7 +195,7 @@ body {
   /*color: #94CFC1;*/ /** className="light" **/
 }
 
-#pitch_phone {
+/*#pitch_phone {
   width: 225px;
   height: 455px;
   z-index: 1;
@@ -181,7 +203,7 @@ body {
 
 
   border-radius: 30px;
-}
+} */
 
 /* Rectangle 18, the thing under half the phone, that block of text, and the button. */
 #pitch_block {
@@ -872,5 +894,226 @@ Emily stresed that alot so lets make it happen.*/
   color: #054939;
 }
 
+/** Animation **/
 
+@-webkit-keyframes fade-in-top {
+  0% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in-top {
+  0% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Emb Code */
+
+.missionstatement
+{
+position: absolute;
+width: 285px;
+height: 112px;
+left: 541px;
+top: 463px;
+}
+
+
+.containerstasche
+{
+position: absolute;
+width: 60px;
+height: 36px;
+left: 198px;
+top: 15px;
+
+}
+
+
+.missiondetail
+{
+  position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+font-family: Coda;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 28px;
+/* or 175% */
+
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: 0.05em;
+
+color: #BCEADF;
+}
+
+
+
+
+.missionparagraph
+{
+ 
+  
+  font-family: Coda;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 30px;
+  /* or 187% */
+  
+  letter-spacing: 0.05em;
+  
+  color: #94CFC1;
+}
+
+.name
+{
+position: absolute;
+width: 219px;
+height: 26px;
+left: 3px;
+top: 20px;
+
+font-family: Coda;
+font-style: normal;
+font-weight: 800;
+font-size: 20px;
+line-height: 28px;
+text-align: center;
+letter-spacing: 0.05em;
+
+color: #94CFC1;
+}
+
+
+.name1
+{
+position: absolute;
+width: 601px;
+height: 49px;
+left: 277px;
+top: 118px;
+
+font-family: Coda;
+font-style: normal;
+font-weight: normal;
+font-size: 42px;
+line-height: 60px;
+letter-spacing: 0.05em;
+
+color: #94CFC1;
+}
+
+
+.firstphone
+{
+
+position: absolute;
+width: 225px;
+height: 455px;
+left: 295px;
+top: 220px;
+animation: fade-in duration timing-function delay iteration-count direction fill-mode;
+
+background: url(../images/pitch_phone.png);
+border-radius: 30px;
+-webkit-animation: fade-in-top 5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in-top 5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+
+
+}
+
+.detail1
+{
+position: absolute;
+width: 332px;
+height: 75px;
+left: 541px;
+top: 193px;
+
+font-family: Coda;
+font-style: normal;
+font-weight: normal;
+font-size: 20px;
+line-height: 28px;
+letter-spacing: 0.05em;
+
+color: #94CFC1;
+}
+
+
+
+.Retanglearoundphone
+{
+  position: absolute;
+width: 599px;
+height: 253px;
+left: 261px;
+top: 411px;
+
+background: rgba(59, 97, 88, 0.85);
+border: 0.25px solid #72A599;
+box-sizing: border-box;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+
+
+.informbutton
+{
+
+position: absolute;
+width: 170px;
+height: 45px;
+left: 599px;
+top: 575px;
+
+background: #09201B;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+.informme
+{
+  position: absolute;
+width: 136px;
+height: 17px;
+left: 616px;
+top: 589px;
+
+font-family: Coda;
+font-style: normal;
+font-weight: normal;
+font-size: 22px;
+line-height: 31px;
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: 0.05em;
+
+color: #94CFC1;
+
+
+}
 

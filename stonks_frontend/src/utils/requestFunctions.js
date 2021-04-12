@@ -29,8 +29,6 @@ async function signupCall(data) {
       errmsg: err,
     }
   })
-  //console.log(`Result is: below`);
-  //console.log(result)
   return result; /* ATTENTION: PUT THE RETURNS HERE, NOT INSIDE THE CHAINED FUNCTIONS. DONT SCRATCH YOUR HEAD FOR HOURS OVER THIS */
 }
 
@@ -38,5 +36,34 @@ async function loginCall(data) {
 
 };
 
-module.exports = { signupCall, loginCall };
+async function downloadFileCall(filename) {
+  console.log("Called download!")
+  let result = {};
+  const url = '/download/' + filename; // feel like this could be a sec issue, someone weigh in.
+  
+  console.log(url)
+  
+  await fetch(url, {
+    method: 'GET',
+    headers: { 
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename='${filename}'`
+    }
+  })
+  .then(res => {
+    console.log("then")
+    res.blob()
+
+  })
+  .then(blob => {
+    //let file = window.URL.createObjectURL(blob);
+    //window.location.assign(file);
+    console.log(blob)
+  })
+  .catch(err => {
+    console.log(`Error Detected: ${err}.`);
+  })
+}
+
+module.exports = { signupCall, loginCall, downloadFileCall };
 
