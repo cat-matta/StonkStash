@@ -45,15 +45,12 @@ class Signup extends Component {
     };
 
     const result = await signupCall(userData);
-    //console.log(result);
 
     if(result.success) {
-      //console.log("Success");
       this.setState({
         success: true
       });
     } else if(result.error) {
-      //console.log("Error");
       this.setState({
         error: true,
         errmsg: result.errmsg
