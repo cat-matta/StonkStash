@@ -25,7 +25,7 @@ consecutive prices are, and can be one of D, W, or M.
 def prices():
     args = request.args
     symbol, start, end, interval = args["symbol"], args["start"], args["end"], args["interval"]
-    return stonkHistoricalData.getStockPrices(symbol, float(start), float(end), interval)
+    return stonkHistoricalData.getStockPrices(symbol, int(float(start)), int(float(end)), interval)
 
 
 '''
@@ -36,7 +36,7 @@ symbol over the period specified in the route
 def dailyPricesOverPastWeek():
     args = request.args
     symbol = args["symbol"]
-    endUnixTime = time.time()
+    endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 604_800 #seconds in 7 days
     return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
 
@@ -44,7 +44,7 @@ def dailyPricesOverPastWeek():
 def dailyPricesOverPastMonth():
     args = request.args
     symbol = args["symbol"]
-    endUnixTime = time.time()
+    endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 2_678_400 #seconds in 31 days
     return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
 
@@ -52,7 +52,7 @@ def dailyPricesOverPastMonth():
 def dailyPricesOverPastQuarter():
     args = request.args
     symbol = args["symbol"]
-    endUnixTime = time.time()
+    endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 7_862_400 #seconds in 91 days
     return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
 
@@ -60,7 +60,7 @@ def dailyPricesOverPastQuarter():
 def dailyPricesOverPastHalfYear():
     args = request.args
     symbol = args["symbol"]
-    endUnixTime = time.time()
+    endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 15_724_800 #seconds in 182 days
     return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
 
@@ -68,7 +68,7 @@ def dailyPricesOverPastHalfYear():
 def dailyPricesOverPastYear():
     args = request.args
     symbol = args["symbol"]
-    endUnixTime = time.time()
+    endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 31_536_000 #seconds in 365 days
     return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
 
@@ -76,7 +76,7 @@ def dailyPricesOverPastYear():
 def dailyPricesOverPastTwoYears():
     args = request.args
     symbol = args["symbol"]
-    endUnixTime = time.time()
+    endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 63_072_000 #seconds in 730 days
     return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
 
@@ -84,7 +84,7 @@ def dailyPricesOverPastTwoYears():
 def dailyPricesOverPastFiveYears():
     args = request.args
     symbol = args["symbol"]
-    endUnixTime = time.time()
+    endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 157_766_400 #seconds in 1826 days
     return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
     
