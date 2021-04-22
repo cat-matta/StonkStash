@@ -20,7 +20,7 @@ class Landing extends Component {
     return(
       <Container fluid id="background">
         <LandingNavbar/>
-        <LandingSplash/>
+        {/*<LandingSplash/>*/}
         <Row id="mission_rect">
           <div id="mission_title" className="light">Mission</div>
           <p id="mission_text" className="light">Investing in the stock market has been localized with free platforms like Robinhood and WeBull therefore, this advancement 
