@@ -1,0 +1,21 @@
+{
+    "landing": {
+        "learn": {
+            "button": "Learn",
+            "heading": "A Proper Introduction to the Market",
+            "text": "We are here to walk you through everything from index funds to the mindset needed to be a successful investor."
+        },
+        "discover": {
+            "button": "Discover",
+            "heading": "Pinpoint the Best Index Funds and ETFs",
+            "text": "Learn how to read a balance sheet, analyze volatility, and see through the fluff."
+        },
+        "watch": {
+            "button": "Watch",
+            "heading": "Keep An Eye On Your Favorites",
+            "text": "Save your favorite stocks and ETFs to view at a glance."
+        }
+
+
+    }
+}
