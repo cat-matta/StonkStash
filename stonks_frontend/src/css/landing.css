@@ -327,108 +327,6 @@ learning curve and serve as your educational tool to understanding the principle
   display: inline;
 }
 
-/* Frame 19544657 */
-#learn_phone {
-  
-  position: absolute;
-  width: 226px;
-  height: 456px;
-  /*left: 325px;
-  bottom: 126px;*/
-
-  /*background: url(Screen Shot 2021-01-28 at 1.45.21 PM.png);*/
-  border-radius: 30px;
-}
-
-/* A Proper Introduction to the Market */
-#learn_header {
-  position: absolute;
-  width: 441px;
-  height: 26px;
-  left: 638px;
-  bottom: 481px;
-
-  font-family: Coda;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 28px;
-  line-height: 40px;
-  letter-spacing: 0.05em;
-
-  /*color: #94CFC1;*/ /** className="light" **/
-
-}
-
-/* We are here to walk you through everything from index funds to the mindset needed to be a successful investor. */
-#learn_text {
-  position: absolute;
-  width: 400px;
-  height: 129px;
-  left: 638px;
-  bottom: 270px;
-
-  font-family: Coda;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 30px;
-  /* or 187% */
-
-  letter-spacing: 0.05em;
-
-  /*color: #94CFC1;*/ /** className="light" **/
-
-}
-
-/* Frame 19544656 */
-#discover_phone {
-  position: absolute;
-  width: 226px;
-  height: 456px;
-  left: 325px;
-  top: 127px;
-
-  /*background: url(Screen Shot 2021-01-28 at 3.56.03 PM.png);*/
-  border-radius: 30px;  
-}
-
-/* Pinpoint the Best Index Funds and ETFs */
-#discover_header {
-  position: absolute;
-  width: 441px;
-  height: 26px;
-  left: 638px;
-  top: 204px;
-
-  font-family: Coda;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 32px;
-  line-height: 45px;
-  letter-spacing: 0.05em;
-
-  /*color: #94CFC1;*/ /** className="light" **/
-}
-
-/* Learn how to read a balance sheet, analyze volatility, and see through the fluff. */
-#discover_text {
-  position: absolute;
-  width: 400px;
-  height: 66px;
-  left: 638px;
-  top: 310px;
-
-  font-family: Coda;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 30px;
-  /* or 150% */
-
-  letter-spacing: 0.05em;
-
-  /*color: #94CFC1;*/ /** className="light" **/
-}
 
 /* Frame 19544657 */
 #watch_phone {
@@ -443,13 +341,10 @@ learning curve and serve as your educational tool to understanding the principle
   
 }
 
-/* Keep An Eye On Your Favorites */
-#watch_header {
-  position: absolute;
+/* The header text in the vertical carosel. */
+#vc_header {
   width: 441px;
   height: 26px;
-  left: 618px;
-  top: 205px;
 
   font-family: Coda;
   font-style: normal;
@@ -461,13 +356,10 @@ learning curve and serve as your educational tool to understanding the principle
   /*color: #94CFC1;*/ /** className="light" **/
 }
 
-/* Save your favorite stocks and ETFs to view at a glance. */
-#watch_text {
-  position: absolute;
+/* The paragraph text in the vertical carosel */
+#vc_text {
   width: 400px;
   height: 57px;
-  left: 617px;
-  top: 314px;
 
   font-family: Coda;
   font-style: normal;
