@@ -87,7 +87,7 @@ def getMACD(closes):
 #Note: this is a helper function called by getStockPrices
 def getSoup(stockSymbol, startUnixTime, endUnixTime, interval):
 
-    intervals = {'D': '1d', 'W': '1wk', 'M': '1mo'}
+    intervals = {'H': '1h', 'D': '1d', 'W': '1wk', 'M': '1mo'}
 
     #generate url from the above parameters
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{stockSymbol}?symbol={stockSymbol}&period1={startUnixTime}&period2={endUnixTime}&useYfid=true&interval={intervals[interval]}&includePrePost=true&lang=en-US&region=US&crumb=MuMxQThgteG&corsDomain=finance.yahoo.com"
@@ -115,13 +115,13 @@ def soupToStockPrices(soup):
     return [info["timestamp"]] + [stockPrices[key] for key in ["open", "high", "low", "close", "volume"]]
 
 
-#1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo
+#valid data granularities in yahoo finance: 1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo
 
 #param: stockSymbol is a string with the symbol of the stock we're interested in      
 #       startUnixTime and endUnixTime are ints or floats containing unix timestamps of the
 #       oldest and most recent stock prices we're interested in, respectively
 #       interval is a string indicating how spaced out the stock prices are
-#       the options are D, W, M standing for daily, weekly, and monthly respectively
+#       the options are H, D, W, M standing for hourly, daily, weekly, and monthly respectively
 #
 #return: dict with the open, low, high, close prices, volume traded, and MACD values
 #        for the stock in stockSymbol from the period enclosed by startUnixTime and endUnixTime
@@ -141,14 +141,12 @@ def getStockPrices(stockSymbol, startUnixTime, endUnixTime, interval):
     numberOfPrices = len(stonks[0])
 
     #get more stock prices, these will be used to more accurately compute MACD values
-    extraUnixTime = {'D': 15724800, 'W': 78624000, 'M': 267840000}
+    extraUnixTime = {'H': 2_808_000, 'D': 31_449_600, 'W': 157_248_000, 'M': 336_960_000}
     stonksoup = getSoup(stockSymbol, startUnixTime-extraUnixTime[interval], startUnixTime, interval)
     extraStonks = soupToStockPrices(stonksoup)
 
-    #WARNING: the last element of cat2 has been None before (I don't know why),
-    #but it hasn't happened in a while. I might need to have a check for that
     #combine the stock prices we're interested in and the extra stock prices in a single list
-    stonks = [cat2 + cat1 for (cat1, cat2) in zip(stonks, extraStonks)]
+    stonks = [extraStonk + stonk for (stonk, extraStonk) in zip(stonks, extraStonks)]
     
     MACD = getMACD(stonks[4]) #stonks[4] is the list with the close prices
 
@@ -161,8 +159,7 @@ def getStockPrices(stockSymbol, startUnixTime, endUnixTime, interval):
     #this preserves only the values obtained in the first call to soupToStockPrices
     stonks = [valuesList[:-numberOfPrices-1:-1] for valuesList in stonks]
 
-    #convert unix timestamps to dates
-    stonks[0] = [datetime.utcfromtimestamp(timestamp).strftime('%m-%d-%Y') for timestamp in stonks[0]]
+    #convert unix timestamps to strings with the date and time
+    stonks[0] = [datetime.utcfromtimestamp(timestamp).strftime('%m-%d-%Y %H:%M:%S') for timestamp in stonks[0]]
 
     return dict(zip(["date", "open", "high", "low", "close", "volume", "MACD", "MACD Signal Line", "MACD Histogram"], stonks + [MACD[:numberOfPrices], signalLine[:numberOfPrices], macdHistogram]))
-

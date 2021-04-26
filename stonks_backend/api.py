@@ -19,7 +19,7 @@ def ratios():
 this route returns the stock prices of the stock in symbol
 in the period starting at start and ending in end. start
 and end are unix timestamps. Interval is how spaced out
-consecutive prices are, and can be one of D, W, or M.
+consecutive prices are, and can be one of H, D, W, or M.
 '''
 @app.route('/stock')
 def prices():
@@ -27,6 +27,16 @@ def prices():
     symbol, start, end, interval = args["symbol"], args["start"], args["end"], args["interval"]
     return stonkHistoricalData.getStockPrices(symbol, int(float(start)), int(float(end)), interval)
 
+'''
+returns hourly stock prices over the past 24 hours
+'''
+@app.route('/stock/day')
+def hourlyPricesOverPastDay():
+    args = request.args
+    symbol = args["symbol"]
+    endUnixTime = int( time.time() )
+    startUnixTime = endUnixTime - 86_400
+    return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'H')
 
 '''
 all of the routes below return daily prices for the stock in
