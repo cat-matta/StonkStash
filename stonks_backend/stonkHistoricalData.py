@@ -80,7 +80,7 @@ def getMACD(closes):
 #param: stockSymbol is a string containing the symbol of the stock we're interested in
 #       startUnixTime is the unix timestamp of the date of the oldest stock price we're looking for
 #       endUnixTime is the unix timestamp of the date of the most recent stock price we're looking for
-#       interval is a string, one of D, W, M, which indicates how spaced apart the stock prices should be
+#       interval is a string, one of H, D, W, M, which indicates how spaced apart the stock prices should be
 #
 #return: soup of the html of the page containing the stock prices indicated by the parameters
 #
@@ -119,12 +119,12 @@ def soupToStockPrices(soup):
 
 #param: stockSymbol is a string with the symbol of the stock we're interested in      
 #       startUnixTime and endUnixTime are ints or floats containing unix timestamps of the
-#       oldest and most recent stock prices we're interested in, respectively
-#       interval is a string indicating how spaced out the stock prices are
-#       the options are H, D, W, M standing for hourly, daily, weekly, and monthly respectively
+#        oldest and most recent stock prices we're interested in, respectively
+#       interval is a string indicating how spaced out the stock prices are where it can be one of
+#        H, D, W, M standing for hourly, daily, weekly, and monthly respectively
 #
 #return: dict with the open, low, high, close prices, volume traded, and MACD values
-#        for the stock in stockSymbol from the period enclosed by startUnixTime and endUnixTime
+#         for the stock in stockSymbol from the period enclosed by startUnixTime and endUnixTime
 def getStockPrices(stockSymbol, startUnixTime, endUnixTime, interval):
 
     #first we get the stock prices we're interested in, then we get 
@@ -162,4 +162,4 @@ def getStockPrices(stockSymbol, startUnixTime, endUnixTime, interval):
     #convert unix timestamps to strings with the date and time
     stonks[0] = [datetime.utcfromtimestamp(timestamp).strftime('%m-%d-%Y %H:%M:%S') for timestamp in stonks[0]]
 
-    return dict(zip(["date", "open", "high", "low", "close", "volume", "MACD", "MACD Signal Line", "MACD Histogram"], stonks + [MACD[:numberOfPrices], signalLine[:numberOfPrices], macdHistogram]))
+    return dict(zip(["date", "open", "high", "low", "close", "volume", "MACD", "MACD-Signal", "MACD-Hist"], stonks + [MACD[:numberOfPrices], signalLine[:numberOfPrices], macdHistogram]))
