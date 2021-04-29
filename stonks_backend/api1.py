@@ -1,7 +1,8 @@
 from flask import Flask
 from flask import request
-from .obtainBalanceSheet import driver
+from . import obtainBalanceSheet as obs
 from . import stonkHistoricalData1 as shd1
+from . import indexInfo as ii
 import time
 import ciso8601
 
@@ -12,11 +13,16 @@ app = Flask(__name__)
 def ratios():
     args = request.args
     symbol = args["symbol"]
-    return driver(symbol)
+    return obs.driver(symbol)
 
-'''
-returns hourly stock prices over the past 24 hours
-'''
+#this route returns info from the three major stock market indices
+#dow jones, nasdaq, and s&p 500
+@app.route('/index')
+def threeBigIndices():
+    return ii.driver()
+
+
+#returns hourly stock prices over the past 24 hours
 @app.route('/stock/day')
 def hourlyPricesOverPastDay():
     args = request.args

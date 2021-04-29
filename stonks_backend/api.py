@@ -1,7 +1,8 @@
 from flask import Flask
 from flask import request
-from .obtainBalanceSheet import driver
-from . import stonkHistoricalData
+from . import obtainBalanceSheet as obs
+from . import stonkHistoricalData as shd
+from . import indexInfo as ii
 import time
 import ciso8601
 
@@ -12,8 +13,13 @@ app = Flask(__name__)
 def ratios():
     args = request.args
     symbol = args["symbol"]
-    return driver(symbol)
+    return obs.driver(symbol)
 
+#this route returns info from the three major stock market indices
+#dow jones, nasdaq, and s&p 500
+@app.route('/index')
+def threeBigIndices():
+    return ii.driver()
 
 '''
 this route returns the stock prices of the stock in symbol
@@ -25,7 +31,7 @@ consecutive prices are, and can be one of H, D, W, or M.
 def prices():
     args = request.args
     symbol, start, end, interval = args["symbol"], args["start"], args["end"], args["interval"]
-    return stonkHistoricalData.getStockPrices(symbol, int(float(start)), int(float(end)), interval)
+    return shd.getStockPrices(symbol, int(float(start)), int(float(end)), interval)
 
 '''
 returns hourly stock prices over the past 24 hours
@@ -36,7 +42,7 @@ def hourlyPricesOverPastDay():
     symbol = args["symbol"]
     endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 86_400
-    return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'H')
+    return shd.getStockPrices(symbol, startUnixTime, endUnixTime, 'H')
 
 '''
 all of the routes below return daily prices for the stock in
@@ -48,7 +54,7 @@ def dailyPricesOverPastWeek():
     symbol = args["symbol"]
     endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 604_800 #seconds in 7 days
-    return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
+    return shd.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
 
 @app.route('/stock/month')
 def dailyPricesOverPastMonth():
@@ -56,7 +62,7 @@ def dailyPricesOverPastMonth():
     symbol = args["symbol"]
     endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 2_678_400 #seconds in 31 days
-    return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
+    return shd.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
 
 @app.route('/stock/quarter')
 def dailyPricesOverPastQuarter():
@@ -64,7 +70,7 @@ def dailyPricesOverPastQuarter():
     symbol = args["symbol"]
     endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 7_862_400 #seconds in 91 days
-    return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
+    return shd.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
 
 @app.route('/stock/halfyear')
 def dailyPricesOverPastHalfYear():
@@ -72,7 +78,7 @@ def dailyPricesOverPastHalfYear():
     symbol = args["symbol"]
     endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 15_724_800 #seconds in 182 days
-    return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
+    return shd.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
 
 @app.route('/stock/year')
 def dailyPricesOverPastYear():
@@ -80,7 +86,7 @@ def dailyPricesOverPastYear():
     symbol = args["symbol"]
     endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 31_536_000 #seconds in 365 days
-    return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
+    return shd.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
 
 @app.route('/stock/twoyears')
 def dailyPricesOverPastTwoYears():
@@ -88,7 +94,7 @@ def dailyPricesOverPastTwoYears():
     symbol = args["symbol"]
     endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 63_072_000 #seconds in 730 days
-    return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
+    return shd.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
 
 @app.route('/stock/fiveyears')
 def dailyPricesOverPastFiveYears():
@@ -96,5 +102,5 @@ def dailyPricesOverPastFiveYears():
     symbol = args["symbol"]
     endUnixTime = int( time.time() )
     startUnixTime = endUnixTime - 157_766_400 #seconds in 1826 days
-    return stonkHistoricalData.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
+    return shd.getStockPrices(symbol, startUnixTime, endUnixTime, 'D')
     
